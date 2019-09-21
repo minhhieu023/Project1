@@ -6,14 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sudoku
 {
-    class Cons
+    class Value
     {
-        public static int Btn_Width = 80;
-        public static int Btn_Hight = 80;
-        private int[,] matrix;         
-        public Cons ()
+        private int[,] matrix;
+        public Value()
         {
-            matrix = new int[9,9]
+            matrix = new int[9, 9]
             {
                 {5,6,0,0,7,0,0,0,0 },
                 {6,0,0,1,9,5,0,0,0 },
@@ -23,10 +21,10 @@ namespace Sudoku
                 {7,0,0,0,2,0,0,0,6 },
                 {0,6,0,0,0,0,2,8,0 },
                 {0,0,0,4,1,9,0,0,5 },
-                {0,0,0,0,8,0,0,7,9 },              
+                {0,0,0,0,8,0,0,7,9 },
             };
         }
         public int[,] Matrix { get => matrix; set => matrix = value; }
-
+        
     }
 }

@@ -33,6 +33,7 @@
             // 
             // pnChessBoard
             // 
+            this.pnChessBoard.BackColor = System.Drawing.Color.Transparent;
             this.pnChessBoard.Location = new System.Drawing.Point(13, 13);
             this.pnChessBoard.Name = "pnChessBoard";
             this.pnChessBoard.Size = new System.Drawing.Size(913, 727);
