@@ -8,7 +8,12 @@ namespace Sudoku
 {
     class Value
     {
+        #region Properties
         private int[,] matrix;
+        public int[,] Matrix { get => matrix; set => matrix = value; }
+        #endregion
+
+        #region Initialize
         public Value()
         {
             matrix = new int[9, 9]
@@ -24,38 +29,67 @@ namespace Sudoku
                 {0,0,0,0,8,0,0,7,9 },
             };
         }
-        public int[,] Matrix { get => matrix; set => matrix = value; }
-        public virtual void isOK( int value)
+        #endregion
+
+        #region Methods
+        #region isOK
+        public int isOK(int curValue, int row, int col)
         {
-           
-                int i = 0, j = 0;
-                for (i = 0; i < 9; i++)
+
+            int i = 0, j = 0;
+            for (i = 0; i < 9; i++)
+            {
+                if (matrix[row, i] == curValue) return 0;
+            }
+            for (i = 0; i < 9; i++)
+            {
+                if (matrix[i, col] == curValue) return 0;
+            }
+            int a = row / 3, b = col / 3;
+            for (i = 3 * a; i < 3 * a + 3; i++)
+            {
+                for (j = 3 * b; j < 3 * b + 3; j++)
                 {
-                    if (Matrix[value][i] == k) return 0;
+                    if (matrix[i, j] == curValue) return 0;
                 }
-                for (i = 0; i < 9; i++)
+            }
+            return 1;
+        }
+        #endregion
+        #region Solve_Soduku
+        public void Solve_Sodoku(int curRow, int curCol)
+        {
+            if (curCol == 9)
+            {
+                if (curRow == 8)
                 {
-                    if ([i][y] == k) return 0;
+                    return;
                 }
-                int a = x / 3, b = y / 3;
-                for (i = 3 * a; i < 3 * a + 3; i++)
+                else
                 {
-                    for (j = 3 * b; j < 3 * b + 3; j++)
+                    Solve_Sodoku(curRow + 1, 0);
+                }
+            }
+            else if (matrix[curRow, curCol] == 0)
+            {
+                int k = 0;
+                for (k = 1; k <= 9; k++)
+                {
+                    if (isOK(k, curRow, curCol) == 1)
                     {
-                        if (S[i][j] == k) return 0;
+                        matrix[curRow, curCol] = k;
+                        Solve_Sodoku(curRow, curCol + 1);
+                        matrix[curRow, curCol] = 0;
                     }
                 }
-                return 1;
-
             }
-        }
-        public void SolveSudoku()
-        {
-            for ( int i=0; i< matrix.GetLength(1); i++)
+            else
             {
-
+                Solve_Sodoku(curRow, curCol + 1);
             }
-
         }
+        #endregion
+        #endregion
+
     }
 }
