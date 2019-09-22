@@ -14,12 +14,14 @@ namespace Sudoku
     {
         #region Properties
         CheckBoardManager ChessBoard;
+        Value value = new Value();
         #endregion
         public Sudoku()
         {
             InitializeComponent();
             ChessBoard = new CheckBoardManager(pnChessBoard);
-            ChessBoard.LoadChessBoard();
+     
+            ChessBoard.LoadChessBoard(value.Matrix);
         }
        
     }

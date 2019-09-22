@@ -16,6 +16,7 @@ namespace Sudoku
         { get => chessBoard;
           set => chessBoard = value;
         }
+
         #endregion
 
         #region Initialize
@@ -26,199 +27,36 @@ namespace Sudoku
         #endregion
 
         #region Methods
-        public void LoadChessBoard()
+
+        public void LoadChessBoard(int[,] map)
         {
             Button oldbtn = new Button()
             {
                 Width = 0,
                 Location = new Point(0, 0)
-            };          
-            //TODO: Dòng 1
-                for (int j = 0; j < 3; j++)
+            };
+            for ( int i=0; i< map.GetLength(1); i++ )
+            {
+               
+                for ( int j=0; j< map.GetLength(0); j++)
                 {
-                    for (int k = 0; k < 4; k++)
+                    Button btn = new Button();
+                    btn.Width = Cons.Btn_Width;
+                    btn.Height = Cons.Btn_Hight;
+                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
+                    if (map[i, j] != 0)
                     {
-                        Button btn = new Button();
-                        btn.Width = Cons.Btn_Width;
-                        btn.Height = Cons.Btn_Hight;
-                        btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                         btn.Click += btn_Click;
-                        ChessBoard.Controls.Add(btn);
-                        oldbtn = btn;                       
+                        btn.Text = map[i, j].ToString();
+                        btn.Font = new Font("Times New Roman", 16);
+                        
+                        btn.Enabled = false;
                     }
-                    oldbtn.Location = new Point(0, oldbtn.Location.Y + Cons.Btn_Hight);
-
-                    oldbtn.Width = 0;
-                    oldbtn.Height = 0;
-                }
-            //    oldbtn.Location = new Point(0, oldbtn.Location.Y + Cons.Btn_Hight);
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(Cons.Btn_Hight*3 +2, 0)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
                     btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(Cons.Btn_Hight*3+2, Cons.Btn_Width + oldbtn.Location.Y);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(Cons.Btn_Hight * 6 + 4, 0)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                    btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(Cons.Btn_Hight * 6 + 4, Cons.Btn_Width + oldbtn.Location.Y);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-            //TODO: Dòng 2
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(0, Cons.Btn_Width*3 +2)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-    
-                 
-                    btn.Click += btn_Click;
+               
                     ChessBoard.Controls.Add(btn);
                     oldbtn = btn;
                 }
                 oldbtn.Location = new Point(0, oldbtn.Location.Y + Cons.Btn_Hight);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(Cons.Btn_Hight * 3 + 2, Cons.Btn_Width*3 + 2)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                    btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(Cons.Btn_Hight * 3 + 2, Cons.Btn_Width + oldbtn.Location.Y);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(Cons.Btn_Hight * 6 + 4, Cons.Btn_Width * 3 + 2)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                    btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(Cons.Btn_Hight * 6 + 4, Cons.Btn_Width + oldbtn.Location.Y);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-            //TODO: Dòng 3
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(0, Cons.Btn_Width * 6 + 4)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                    btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(0, oldbtn.Location.Y + Cons.Btn_Hight);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-
-            oldbtn.Width = 0;
-            oldbtn.Location = new Point(Cons.Btn_Hight * 3 + 2, Cons.Btn_Width * 6 + 4);
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                    btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(Cons.Btn_Hight * 3 + 2, Cons.Btn_Width + oldbtn.Location.Y);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
-            }
-            oldbtn = new Button()
-            {
-                Width = 0,
-                Location = new Point(Cons.Btn_Hight * 6 + 4, Cons.Btn_Width * 6 +4)
-            };
-            for (int j = 0; j < 3; j++)
-            {
-                for (int k = 0; k < 4; k++)
-                {
-                    Button btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
-                    btn.Click += btn_Click;
-                    ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
-                }
-                oldbtn.Location = new Point(Cons.Btn_Hight * 6 + 4, Cons.Btn_Width + oldbtn.Location.Y);
                 oldbtn.Width = 0;
                 oldbtn.Height = 0;
             }
@@ -226,8 +64,15 @@ namespace Sudoku
 
         private void btn_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;           
+            Button btn = sender as Button;
+            btn.Text = "ok";
+            btn.Focus();
+
         }
+
+
+
+
         #endregion
 
     }
