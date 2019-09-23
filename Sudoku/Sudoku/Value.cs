@@ -9,16 +9,9 @@ namespace Sudoku
     class Value
     {
         #region Properties
-        private int[,] matrix;
-        public int[,] Matrix { get => matrix; set => matrix = value; }
-        #endregion
-
-        #region Initialize
-        public Value()
-        {
-            matrix = new int[9, 9]
+        public int [,] matrix =  new int[9, 9]
             {
-                {5,6,0,0,7,0,0,0,0 },
+                {5,6,0,0,7,0,0,0,2 },
                 {6,0,0,1,9,5,0,0,0 },
                 {0,9,8,0,0,0,0,6,0 },
                 {8,0,0,0,6,0,0,0,3 },
@@ -28,6 +21,12 @@ namespace Sudoku
                 {0,0,0,4,1,9,0,0,5 },
                 {0,0,0,0,8,0,0,7,9 },
             };
+        #endregion
+
+        #region Initialize
+        public Value()
+        {
+           
         }
         #endregion
 
@@ -57,6 +56,7 @@ namespace Sudoku
         }
         #endregion
         #region Solve_Soduku
+        public int[,] a1;
         public void Solve_Sodoku(int curRow, int curCol)
         {
             if (curCol == 9)
@@ -87,7 +87,9 @@ namespace Sudoku
             {
                 Solve_Sodoku(curRow, curCol + 1);
             }
+
         }
+        
         #endregion
         #endregion
 

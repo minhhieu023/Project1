@@ -36,14 +36,14 @@
             this.pnChessBoard.BackColor = System.Drawing.Color.Transparent;
             this.pnChessBoard.Location = new System.Drawing.Point(13, 13);
             this.pnChessBoard.Name = "pnChessBoard";
-            this.pnChessBoard.Size = new System.Drawing.Size(913, 727);
+            this.pnChessBoard.Size = new System.Drawing.Size(1093, 792);
             this.pnChessBoard.TabIndex = 0;
             // 
             // Sudoku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 751);
+            this.ClientSize = new System.Drawing.Size(1175, 829);
             this.Controls.Add(this.pnChessBoard);
             this.Name = "Sudoku";
             this.Text = "Sudoku";

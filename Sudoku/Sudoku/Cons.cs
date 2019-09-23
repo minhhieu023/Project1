@@ -10,7 +10,9 @@ namespace Sudoku
     {
         public static int Btn_Width = 80;
         public static int Btn_Hight = 80;
-        private int[,] matrix;         
+        private int[,] matrix;
+        public static int Btn_SpaceX = 0;
+        public static int Btn_SpaceY = 0;
         public Cons ()
         {
             matrix = new int[9,9]

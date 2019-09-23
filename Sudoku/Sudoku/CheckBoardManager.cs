@@ -12,6 +12,7 @@ namespace Sudoku
     {
         #region Propeties
         private Panel chessBoard;
+        Value value = new Value();
         public Panel ChessBoard
         { get => chessBoard;
           set => chessBoard = value;
@@ -27,38 +28,30 @@ namespace Sudoku
         #endregion
 
         #region Methods
-
+       
         public void LoadChessBoard(int[,] map)
         {
-            Button oldbtn = new Button()
+            
+            for (int i = 0; i < map.GetLength(1); i++)
             {
-                Width = 0,
-                Location = new Point(0, 0)
-            };
-            for ( int i=0; i< map.GetLength(1); i++ )
-            {
-               
-                for ( int j=0; j< map.GetLength(0); j++)
+                Point defaultPoint = new Point(0, 0);
+                for (int j = 0; j < map.GetLength(0); j++)
                 {
                     Button btn = new Button();
                     btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Hight;
-                    btn.Location = new Point(oldbtn.Location.X + oldbtn.Width, oldbtn.Location.Y);
+                    btn.Height = Cons.Btn_Hight;               
+                    btn.Location = new Point(defaultPoint.X + Cons.Btn_Width * j , defaultPoint.Y + Cons.Btn_Hight * i );
                     if (map[i, j] != 0)
                     {
                         btn.Text = map[i, j].ToString();
-                        btn.Font = new Font("Times New Roman", 16);
-                        
+                    btn.Font = new Font("Times New Roman", 16);
+
                         btn.Enabled = false;
                     }
-                    btn.Click += btn_Click;
-               
                     ChessBoard.Controls.Add(btn);
-                    oldbtn = btn;
+                    btn.Click += btn_Click;
                 }
-                oldbtn.Location = new Point(0, oldbtn.Location.Y + Cons.Btn_Hight);
-                oldbtn.Width = 0;
-                oldbtn.Height = 0;
+                
             }
         }
 
