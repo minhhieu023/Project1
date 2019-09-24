@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace Sudoku
 {
     class Value
+
     {
         #region Properties
+        Stack myStack = new Stack();
         public int [,] matrix =  new int[9, 9]
             {
                 {5,6,0,0,7,0,0,0,2 },
@@ -34,7 +37,6 @@ namespace Sudoku
         #region isOK
         public int isOK(int curValue, int row, int col)
         {
-
             int i = 0, j = 0;
             for (i = 0; i < 9; i++)
             {
@@ -56,7 +58,7 @@ namespace Sudoku
         }
         #endregion
         #region Solve_Soduku
-        public int[,] a1;
+  
         public void Solve_Sodoku(int curRow, int curCol)
         {
             if (curCol == 9)

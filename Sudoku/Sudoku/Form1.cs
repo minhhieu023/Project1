@@ -13,20 +13,20 @@ namespace Sudoku
     public partial class Sudoku : Form
     {
         #region Properties
-        CheckBoardManager ChessBoard;    
+        CheckBoardManager ChessBoard;
+        Feature Feature;
         Value value = new Value();
-        Array a1;
+      
         #endregion
         public Sudoku()
         {
          
             InitializeComponent();
             ChessBoard = new CheckBoardManager(pnChessBoard);
-            
-            ChessBoard.LoadChessBoard(value.matrix);        
-            
-        }
-        
+            ChessBoard.LoadChessBoard(value.matrix);
 
+            Feature = new Feature(panel1);
+            Feature.LoadInputPad();
+        }      
     }
 }
