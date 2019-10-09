@@ -7,12 +7,12 @@ using System.Collections;
 
 namespace Sudoku
 {
-    class Value
+    class Solution
 
     {
         #region Properties
-        Stack myStack = new Stack();
-        public int [,] matrix =  new int[9, 9]
+        
+        public static int [,] matrix =  new int[9, 9]
             {
                 {5,6,0,0,7,0,0,0,2 },
                 {6,0,0,1,9,5,0,0,0 },
@@ -27,15 +27,11 @@ namespace Sudoku
         #endregion
 
         #region Initialize
-        public Value()
-        {
-           
-        }
         #endregion
 
         #region Methods
         #region isOK
-        public int isOK(int curValue, int row, int col)
+        public static int isOK(int curValue, int row, int col)
         {
             int i = 0, j = 0;
             for (i = 0; i < 9; i++)
@@ -89,7 +85,6 @@ namespace Sudoku
             {
                 Solve_Sodoku(curRow, curCol + 1);
             }
-
         }
         
         #endregion
