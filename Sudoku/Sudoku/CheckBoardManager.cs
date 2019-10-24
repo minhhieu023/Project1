@@ -12,21 +12,21 @@ namespace Sudoku
     {
         #region Propeties
         public Point defaultPoint = new Point(0, 0);
-        InpudPad inpuPad = new InpudPad();
+        Solution solution = new Solution();
+        public  InpudPad inpuPad;
         public Point p = new Point();
         private Panel chessBoard;
         public static bool isShow= false;
         public static List<List <Button>> matrix;
+        public static int[,] curMap = new int[9,9];
         public Button btn;
         public static int curRow;
         public static int curCol;
-        public static bool flag;
         public Panel ChessBoard
         {
             get => chessBoard;
             set => chessBoard = value;
         }
-
         #endregion
 
         #region Initialize
@@ -38,8 +38,10 @@ namespace Sudoku
 
         #region Methods
         #region LoadChessBoard
+        
         public void LoadChessBoard(int[,] map) 
         {
+         //   CreatedMatrix();
             matrix = new List<List<Button>>();
             for (int i = 0; i < map.GetLength(1); i++)
             {
@@ -52,56 +54,126 @@ namespace Sudoku
                     btn.Location = new Point(defaultPoint.X + Cons.Btn_Width* j, 
                         defaultPoint.Y + Cons.Btn_Hight * i);
                     btn.FlatStyle = FlatStyle.Popup;
-                    btn.Font = new Font("Times New Roman", 16);
+                    btn.Font = new Font("Times New Roman",25  );
+                 
                     matrix[i].Add(btn);
                     ChessBoard.Controls.Add(btn);
-                    btn.TextChanged += Btn_TextChanged;
+    
                     btn.Click += btn_Click;              
                     btn.MouseMove += btn_MouseMove;
-                    btn.MouseLeave += btn_MouseLeave;                  
+                    btn.MouseLeave += btn_MouseLeave;
+
                     if ((i == 0 || i == 1 || i == 2 || i == 7 || i == 8 || i == 6) &&
                         (j == 0 || j == 1 || j == 2 || j == 7 || j == 8 || j == 6) ||
                         (i == j) || (i == 3 || i == 4) && (j == 5 || j == 4) || (i == 5 || i == 4) 
                         && (j == 3 || j == 4))
 
                     {
-                        btn.BackColor = Color.PaleTurquoise;
-                                     
+                        btn.BackColor = Color.MediumSeaGreen;                      
                     }
                     if (map[i, j] != 0)
-                    {
-                      
-                        btn.Text = map[i, j].ToString();
-                        
+                    {              
+                        btn.Text = map[i, j].ToString();           
                         btn.ForeColor = Color.Black;
-                        btn.Enabled = false;
-                                 
-                    }                                    
+                        btn.Enabled = false;                              
+                    }
+                    else btn.TextChanged += Btn_TextChanged;
+                    curMap[i, j] = map[i, j]; 
                 }
             }
         }
+        #endregion
+        #region PrintSolution
+        public void PrintSolution()
+        {
+            solution.Solve_Sodoku();
+            for (int i = 0; i < Solution.solveMatrix.GetLength(1); i++)
+            {
+                for (int j = 0; j < Solution.solveMatrix.GetLength(0); j++)
+                {
+                    matrix[i][j].Text = Solution.solveMatrix[i, j].ToString();
+                    matrix[i][j].ForeColor = Color.Blue;
+                }
+            }
+        }
+        #endregion
+        #region AlwaysCheck
+        public int AlwaysCheckIsOK(int[,] curMap)
+        {
+            for (int i = 0; i < curMap.GetLength(1); i++)
+            {
+                for (int j = 0; j < curMap.GetLength(0); j++)
+                {
+                    if (curMap[i, j] == 0)
+                        return 0;
+                }               
+            }
+            for (int i = 0; i < curMap.GetLength(1); i++)
+            {
+                for (int j = 0; j < curMap.GetLength(0); j++)
+                {
+                    int temp = curMap[i, j];
+                    curMap[i, j] = 0;
+                    if (solution.isOK(temp, i, j, curMap) == 0)
+                    {
+                        curMap[i,j] = temp;
+                        return 0;
+                    }
+                    curMap[i, j] = temp;
 
+                }
+            }
+
+                    return 1;
+        }
+        #endregion
+        #region CreatedMatrix
+        public void CreatedMatrix()
+        {
+            //Random r = new Random();
+            //Solution.rootMatrix[1, 1] = r.Next(1, 9);
+            //Solution.rootMatrix[1, 7] = r.Next(1, 9);
+            //Solution.rootMatrix[7, 1] = r.Next(1, 9);
+            //Solution.rootMatrix[7, 7] = r.Next(1, 9);
+            //Solution.rootMatrix[4, 4] = r.Next(1, 9);
+           // solution.Solve_Sodoku(0, 0);
+            //int dellCell = 81 - Int32.Parse(Difficute.level.easy.ToString());
+
+        }
+        #endregion
+        #region Envent
         private void Btn_TextChanged(object sender, EventArgs e)
         {
+            
             Button btn = sender as Button;
+            curCol = (btn.Location.X - defaultPoint.X) / Cons.Btn_Width;
+            curRow = (btn.Location.Y - defaultPoint.Y) / Cons.Btn_Hight;
             if (matrix[curRow][curCol].Text != " ")
             {
                 int temp = Int32.Parse(matrix[curRow][curCol].Text);
-                if (Solution.isOK(temp, curRow, curCol) == 1)
-                    btn.ForeColor = Color.Blue;
+                if (solution.isOK(temp, curRow, curCol, curMap) == 1)
+                {
+                    btn.ForeColor = Color.Blue;               
+                }
                 else btn.ForeColor = Color.Red;
+                curMap[curRow, curCol] = temp;
+                if (AlwaysCheckIsOK(curMap) == 1)
+
+                {
+                    if( isShow == true)
+                    this.inpuPad.Close();
+                    MessageBox.Show("You win");
+                }                 
             }
         }
-
         public static void ProcessInsertText()
-        {
-           
+        { 
             matrix[curRow][curCol].Text = InpudPad.CurNumber;
             Cell cell = new Cell(matrix[curRow][curCol].Text, curCol, curRow);
             Interface.undoStack.Push(cell);
         }
         public void btn_Click(object sender, EventArgs e)
-        {
+        { 
            
             Button btn = sender as Button;
             curCol = (btn.Location.X - defaultPoint.X) / Cons.Btn_Width;
@@ -109,16 +181,15 @@ namespace Sudoku
         
             if (isShow == true)
             {
-                inpuPad.Location = Cursor.Position;
-                inpuPad.Focus();
-             
+                inpuPad.Location = new Point(defaultPoint.X + 180 + btn.Location.X, defaultPoint.Y + 180 + btn.Location.Y);
+                inpuPad.Focus();          
             }
             else
             {
-               
+                inpuPad = new InpudPad();
                 inpuPad.Show();
-                isShow = true;   
-                
+                inpuPad.Location = new Point(defaultPoint.X + 180 + btn.Location.X, defaultPoint.Y + 180 + btn.Location.Y);
+                isShow = true;               
             }              
         }
 
@@ -135,8 +206,9 @@ namespace Sudoku
             Button btn = sender as Button;
             btn.FlatStyle = FlatStyle.Popup;
         }
-      
-        #endregion     
+
+        #endregion
+       
         #endregion
 
     }

@@ -16,7 +16,7 @@ namespace Sudoku
               insane = 35,
               inhuman = 26
             };
-      
+        
 
     }
 }

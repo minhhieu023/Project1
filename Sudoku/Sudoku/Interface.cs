@@ -12,10 +12,7 @@ namespace Sudoku
     {
         public static Stack<Cell> undoStack = new Stack<Cell>();
         public static Stack<Cell> redoStack = new Stack<Cell>();
-
-        //public void undoButton ( Stack<int> undo, int curValue)
-        //{
-        //    undo.Push = 
-        //
+        public static Stack<int> temp = new Stack<int>();
+      
     }
 }

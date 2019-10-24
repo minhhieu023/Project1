@@ -8,30 +8,41 @@ using System.Collections;
 namespace Sudoku
 {
     class Solution
-
     {
         #region Properties
-        
-        public static int [,] matrix =  new int[9, 9]
-            {
-                {5,6,0,0,7,0,0,0,2 },
-                {6,0,0,1,9,5,0,0,0 },
-                {0,9,8,0,0,0,0,6,0 },
-                {8,0,0,0,6,0,0,0,3 },
-                {4,0,0,8,0,3,0,0,1 },
-                {7,0,0,0,2,0,0,0,6 },
-                {0,6,0,0,0,0,2,8,0 },
-                {0,0,0,4,1,9,0,0,5 },
-                {0,0,0,0,8,0,0,7,9 },
-            };
-        #endregion
 
+        public static int[,] rootMatrix = new int[9, 9]
+            {
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+            };
+
+        //{   
+        //    {5,0,0,0,7,0,0,1,0},
+        //    {0,0,2,0,9,0,0,0,0 },
+        //    {0,0,0,0,0,2,0,6,0 } ,
+        //    {0,0,0,0,6,0,4,0,0 },
+        //    {0,0,0,0,0,0,0,0,0 },
+        //    {0,0,0,9,0,0,8,0,6 },
+        //    {0,0,0,0,0,0,2,0,0 },
+        //    {0,0,7,0,0,0,0,0,0 },
+        //    { 3,0,0,0,8,0,0,0,9} 
+        //};
+
+    public static int[,] solveMatrix = new int[9, 9];
+        #endregion
         #region Initialize
         #endregion
-
         #region Methods
         #region isOK
-        public static int isOK(int curValue, int row, int col)
+        public int isOK(int curValue, int row, int col, int[,] matrix)
         {
             int i = 0, j = 0;
             for (i = 0; i < 9; i++)
@@ -53,42 +64,140 @@ namespace Sudoku
             return 1;
         }
         #endregion
+
         #region Solve_Soduku
-  
-        public void Solve_Sodoku(int curRow, int curCol)
+        Cell preCell = new Cell("-10", -1,-1);
+        public bool Solve_Sodoku()
         {
-            if (curCol == 9)
             {
-                if (curRow == 8)
+                //        if (curCol == 9 )
+                //        {
+                //             if (curRow == 8)
+                //             {
+                //             for (int i = 0; i < rootMatrix.GetLength(1); i++)
+                //             {
+                //                     for (int j = 0; j < rootMatrix.GetLength(0); j++)
+                //                     {
+                //                         solveMatrix[i, j] = rootMatrix[i, j];
+                //                     }
+
+                //             }
+                //             return;
+                //             }
+                //             else
+                //             {
+                //                 Solve_Sodoku(curRow + 1, 0);
+                //             }
+
+                //        }
+                //         else 
+                //         if (rootMatrix[curRow, curCol] == 0)
+                //         {
+                //         if (curCol != preCell.Col && curRow != preCell.Row)
+                //         {
+                //             int k = 0;
+                //             for (k = 1; k <= 9; k++)
+                //             {
+                //                 if (isOK(k, curRow, curCol, rootMatrix) == 1)
+                //                 {
+                //                     rootMatrix[curRow, curCol] = k;
+                //                     preCell = new Cell(rootMatrix[curRow, curCol].ToString(), curCol, curRow);
+                //                     Solve_Sodoku(curRow, curCol + 1);
+
+                //                 }
+
+                //             }
+                //             if (isOK(9, curRow, curCol, rootMatrix) == 0)
+                //             {
+                //                 rootMatrix[curRow, curCol] = 0;
+                //                 rootMatrix[preCell.Row, preCell.Col] = 0;
+                //                 Solve_Sodoku(preCell.Row, preCell.Col);
+                //             }
+                //         }
+                //         else
+                //         {
+                //             for ( int m = Int32.Parse(preCell.Num); m <=9; m++)
+                //             {
+                //                 if (isOK(m, curRow, curCol, rootMatrix) == 1)
+                //                 {
+                //                     rootMatrix[curRow, curCol] = m;
+                //                     preCell = new Cell(rootMatrix[curRow, curCol].ToString(), curCol, curRow);
+                //                     Solve_Sodoku(curRow, curCol + 1);
+
+                //                 }
+                //             }
+                //         }
+
+
+                //         }
+
+                //         else
+                //         {
+
+                //             Solve_Sodoku(curRow, curCol + 1);
+                //      //   if (curRow == 8 && curCol == 8) return; 
+                //         }
+                ////     return;
+                ///
+            } 
+                int row = -1;
+                int col = -1;
+                bool isEmpty = true;
+                for (int i = 0; i < rootMatrix.GetLength(1); i++)
                 {
-                    return;
-                }
-                else
-                {
-                    Solve_Sodoku(curRow + 1, 0);
-                }
-            }
-            else if (matrix[curRow, curCol] == 0)
-            {
-                int k = 0;
-                for (k = 1; k <= 9; k++)
-                {
-                    if (isOK(k, curRow, curCol) == 1)
+                    for (int j = 0; j < rootMatrix.GetLength(0); j++)
                     {
-                        matrix[curRow, curCol] = k;
-                        Solve_Sodoku(curRow, curCol + 1);
-                        matrix[curRow, curCol] = 0;
+                        if (rootMatrix[i, j] == 0)
+                        {
+                            row = i;
+                            col = j;
+
+                            // we still have some remaining 
+                            // missing values in Sudoku 
+                            isEmpty = false;
+                            break;
+                        }
+                    }
+                    if (!isEmpty)
+                    {
+                        break;
                     }
                 }
-            }
-            else
-            {
-                Solve_Sodoku(curRow, curCol + 1);
-            }
-        }
-        
-        #endregion
-        #endregion
 
+                // no empty space left 
+                if (isEmpty)
+                {
+                    return true;
+                }
+
+                // else for each-row backtrack 
+                for (int num = 1; num <= rootMatrix.GetLength(1); num++)
+                {
+                    if (isOK(num, row, col, rootMatrix)==1)
+                    {
+                        rootMatrix[row, col] = num;
+                        if (Solve_Sodoku())
+                        {
+                            for (int i = 0; i < rootMatrix.GetLength(1); i++)
+                            {
+                                  for (int j = 0; j < rootMatrix.GetLength(0); j++)
+                                  {
+                              solveMatrix[i, j] = rootMatrix[i, j];
+                                  }
+
+                            }
+                            return true;
+                        }
+                        else
+                        {
+                            rootMatrix[row, col] = 0; // replace it 
+                        }
+                    }
+                }
+                return false;
+        }
+        #endregion
+        #endregion
     }
 }
+

@@ -34,11 +34,11 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(151, 200);
+            this.ClientSize = new System.Drawing.Size(159, 178);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InpudPad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.InpudPad_FormClosed);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InpudPad_FormClosing_1);
             this.Load += new System.EventHandler(this.InpudPad_Load);
             this.ResumeLayout(false);
 

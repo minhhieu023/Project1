@@ -10,13 +10,12 @@ using System.Windows.Forms;
 
 namespace Sudoku
 {
-    public partial  class InpudPad : Form
+    public partial class InpudPad : Form
     {
         private static string curNumber;
         public bool isClick;
         public Point newPoint = new Point(0, 0);
         public Button btnNum;
-
 
         public static string CurNumber { get => curNumber; set => curNumber = value; }
 
@@ -35,7 +34,8 @@ namespace Sudoku
                     btnNum.Width = Cons.Btn_InputPad;
                     btnNum.Height = Cons.Btn_InputPad;
                     btnNum.Text = num.ToString();
-                    btnNum.Location = new Point(newPoint.X + Cons.Btn_InputPad*j, newPoint.Y + Cons.Btn_InputPad*i);
+                    btnNum.Location = new Point(newPoint.X + Cons.Btn_InputPad*j, 
+                        newPoint.Y + Cons.Btn_InputPad*i);
                     num++;
                     btnNum.Click += BtnNum_Click;
                     this.Controls.Add(btnNum);
@@ -49,7 +49,8 @@ namespace Sudoku
             isClick = true;
             curNumber = btnNum.Text;
             CheckBoardManager.ProcessInsertText();
-            
+
+
         }
 
  
@@ -59,10 +60,14 @@ namespace Sudoku
 
         }
 
-        private void InpudPad_FormClosed(object sender, FormClosedEventArgs e)
+        private void InpudPad_FormClosing(object sender, FormClosingEventArgs e)
         {
             CheckBoardManager.isShow = false;
-            
+        }
+
+        private void InpudPad_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            CheckBoardManager.isShow = false;
             
         }
     }
