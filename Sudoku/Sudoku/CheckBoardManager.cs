@@ -19,6 +19,7 @@ namespace Sudoku
         public static bool isShow= false;
         public static List<List <Button>> matrix;
         public static int[,] curMap = new int[9,9];
+        public static bool rendered=false;
         public Button btn;
         public static int curRow;
         public static int curCol;
@@ -34,11 +35,12 @@ namespace Sudoku
         {
             this.ChessBoard = chessBoard;        
         }
+       
         #endregion
 
         #region Methods
         #region LoadChessBoard
-        
+
         public void LoadChessBoard(int[,] map) 
         {
          //   CreatedMatrix();
@@ -62,7 +64,7 @@ namespace Sudoku
                     btn.Click += btn_Click;              
                     btn.MouseMove += btn_MouseMove;
                     btn.MouseLeave += btn_MouseLeave;
-
+                    
                     if ((i == 0 || i == 1 || i == 2 || i == 7 || i == 8 || i == 6) &&
                         (j == 0 || j == 1 || j == 2 || j == 7 || j == 8 || j == 6) ||
                         (i == j) || (i == 3 || i == 4) && (j == 5 || j == 4) || (i == 5 || i == 4) 
@@ -71,14 +73,15 @@ namespace Sudoku
                     {
                         btn.BackColor = Color.MediumSeaGreen;                      
                     }
-                    if (map[i, j] != 0)
-                    {              
-                        btn.Text = map[i, j].ToString();           
-                        btn.ForeColor = Color.Black;
-                        btn.Enabled = false;                              
-                    }
-                    else btn.TextChanged += Btn_TextChanged;
-                    curMap[i, j] = map[i, j]; 
+                    //if (map[i, j] != 0)
+                    //{              
+                    //    btn.Text = map[i, j].ToString();           
+                    //    btn.ForeColor = Color.Black;
+                    //    btn.Enabled = false;                              
+                    //}
+                    //else btn.TextChanged += Btn_TextChanged;
+                    //curMap[i, j] = map[i, j];
+                    rendered = true;
                 }
             }
         }
@@ -86,7 +89,7 @@ namespace Sudoku
         #region PrintSolution
         public void PrintSolution()
         {
-            solution.Solve_Sodoku();
+            //solution.Solve_Sodoku();
             for (int i = 0; i < Solution.solveMatrix.GetLength(1); i++)
             {
                 for (int j = 0; j < Solution.solveMatrix.GetLength(0); j++)
@@ -128,17 +131,26 @@ namespace Sudoku
         }
         #endregion
         #region CreatedMatrix
-        public void CreatedMatrix()
+        public void CreateNewMatrix()
         {
-            //Random r = new Random();
-            //Solution.rootMatrix[1, 1] = r.Next(1, 9);
-            //Solution.rootMatrix[1, 7] = r.Next(1, 9);
-            //Solution.rootMatrix[7, 1] = r.Next(1, 9);
-            //Solution.rootMatrix[7, 7] = r.Next(1, 9);
-            //Solution.rootMatrix[4, 4] = r.Next(1, 9);
-           // solution.Solve_Sodoku(0, 0);
-            //int dellCell = 81 - Int32.Parse(Difficute.level.easy.ToString());
+            for (int i = 0; i < Solution.rootMatrix.GetLength(1); i++)
+            {
+                for (int j = 0; j < Solution.rootMatrix.GetLength(0); j++)
+                {                  
+                    matrix[i][j].TextChanged -= Btn_TextChanged;
+                    matrix[i][j].ResetText();
+                    matrix[i][j].Enabled = true;
+                    if (Solution.rootMatrix[i, j] != 0)
+                    {
+                        matrix[i][j].Text = Solution.rootMatrix[i, j].ToString();
+                        matrix[i][j].ForeColor = Color.Black;
+                        matrix[i][j].Enabled = false;
+                    }
+                    else matrix[i][j].TextChanged += Btn_TextChanged;
+                    curMap[i, j] = Solution.rootMatrix[i, j];
 
+                }
+            }
         }
         #endregion
         #region Envent
@@ -206,7 +218,12 @@ namespace Sudoku
             Button btn = sender as Button;
             btn.FlatStyle = FlatStyle.Popup;
         }
-
+        public static void Hint()
+        {
+            matrix[curRow][curCol].Text = Solution.solveMatrix[curRow, curCol].ToString();
+            matrix[curRow][curCol].ForeColor = Color.Black;
+            matrix[curRow][curCol].Enabled = false;
+        }
         #endregion
        
         #endregion

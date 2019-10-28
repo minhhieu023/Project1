@@ -64,9 +64,7 @@ namespace Sudoku
             return 1;
         }
         #endregion
-
         #region Solve_Soduku
-        Cell preCell = new Cell("-10", -1,-1);
         public bool Solve_Sodoku()
         {
             {
@@ -195,6 +193,23 @@ namespace Sudoku
                     }
                 }
                 return false;
+        }
+        #endregion
+        #region ResetMatrix
+        public void ResetMatrix(int [,] matrix)
+        {
+            matrix = new int [9,9]
+                {
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+               { 0,0,0,0,0,0,0,0,0},
+            };
         }
         #endregion
         #endregion

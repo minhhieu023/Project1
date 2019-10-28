@@ -8,3 +8,5 @@ D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\Sudoku\obj\Debug\S
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\Sudoku\obj\Debug\Sudoku.exe
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\Sudoku\obj\Debug\Sudoku.pdb
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\Sudoku\bin\Debug\Sudoku.pdb
+D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\Sudoku\bin\Debug\Bunifu_UI_v1.52.dll
+D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\Sudoku\obj\Debug\Sudoku.csproj.CopyComplete

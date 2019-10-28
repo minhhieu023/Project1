@@ -15,14 +15,15 @@ namespace Sudoku
         private static string curNumber;
         public bool isClick;
         public Point newPoint = new Point(0, 0);
-        public Button btnNum;
-
+        public Button btnNum;     
         public static string CurNumber { get => curNumber; set => curNumber = value; }
 
         public InpudPad()
         {
             InitializeComponent();
+            
             DrawInput();
+            this.ShowInTaskbar = false;
         }
         void DrawInput()
         {
@@ -38,8 +39,7 @@ namespace Sudoku
                         newPoint.Y + Cons.Btn_InputPad*i);
                     num++;
                     btnNum.Click += BtnNum_Click;
-                    this.Controls.Add(btnNum);
-                   
+                    this.Controls.Add(btnNum);                  
                 }
         }
 
@@ -65,10 +65,9 @@ namespace Sudoku
             CheckBoardManager.isShow = false;
         }
 
-        private void InpudPad_FormClosing_1(object sender, FormClosingEventArgs e)
+        private void btnHint_Click(object sender, EventArgs e)
         {
-            CheckBoardManager.isShow = false;
-            
+            CheckBoardManager.Hint();
         }
     }
 }

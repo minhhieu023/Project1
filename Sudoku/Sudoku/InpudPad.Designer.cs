@@ -28,22 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnHint = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnHint
+            // 
+            this.btnHint.Location = new System.Drawing.Point(43, 153);
+            this.btnHint.Name = "btnHint";
+            this.btnHint.Size = new System.Drawing.Size(75, 23);
+            this.btnHint.TabIndex = 0;
+            this.btnHint.Text = "Hint";
+            this.btnHint.UseVisualStyleBackColor = true;
+            this.btnHint.Click += new System.EventHandler(this.btnHint_Click);
             // 
             // InpudPad
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(159, 178);
+            this.Controls.Add(this.btnHint);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InpudPad";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InpudPad_FormClosing_1);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InpudPad_FormClosing);
             this.Load += new System.EventHandler(this.InpudPad_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnHint;
     }
 }
