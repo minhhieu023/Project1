@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace Sudoku
 {
@@ -15,17 +16,19 @@ namespace Sudoku
         #region Properties
         CheckBoardManager ChessBoard;
         Solution s = new Solution();
-        private int level;
+        private int level=0;
         public static int[,] virtualMatrix;
         int oldRow = -1;
         int oldCol = -1;
+        private bool isNewGame = false;
+      
+
         #endregion
         public Sudoku()
         {
             InitializeComponent();
             ChessBoard = new CheckBoardManager(pnChessBoard);
             ChessBoard.LoadChessBoard(Solution.rootMatrix);
-            btnRender.Enabled = false;
             progressBar.Visible = false;
 
         }
@@ -68,7 +71,10 @@ namespace Sudoku
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            ChessBoard.PrintSolution();
+            if (isNewGame == true)
+                ChessBoard.PrintSolution();
+            else MessageBox.Show("Bạn chưa bấm New Game", "Waring");
+           
         }
 
         private void Sudoku_Load(object sender, EventArgs e)
@@ -82,8 +88,7 @@ namespace Sudoku
         }
         private void DelCell(int[,] matrix, int level)
         {
-            int count = 0;
-            //    int lucky;
+            int count = 0;   
             int x;
             int y;
             while (count < level)
@@ -106,31 +111,34 @@ namespace Sudoku
         }
         private void btnRender_Click(object sender, EventArgs e)
         {
-            
-            progressBar.Visible = true;
-            progressBar.Value = 0;
-            progressBar.MaximumValue = level;
-            Interface.undoStack.Clear();
-            Interface.undoStack.Clear();
-            btnRedo.Enabled = true;   
-            btnUndo.Enabled = true;
-            btnSolve.Enabled = true;
-            s.ResetMatrix(Solution.rootMatrix);
-            s.ResetMatrix(CheckBoardManager.curMap);
-            Solution.rootMatrix[0, 0] = RanDomNumBer(1, 9);
-            Solution.rootMatrix[2, 7] = RanDomNumBer(1, 9);
-            Solution.rootMatrix[7, 2] = RanDomNumBer(1, 9);
-            Solution.rootMatrix[8, 8] = RanDomNumBer(1, 9);
-            Solution.rootMatrix[4, 4] = RanDomNumBer(1, 9);
-            s.Solve_Sodoku();
-            DelCell(Solution.rootMatrix, level);
-            if (progressBar.Value == level)
+            if (level != 0)
             {
-                    ChessBoard.CreateNewMatrix();                  
-       
-                progressBar.Visible = false;               
+                progressBar.Visible = true;
+                progressBar.Value = 0;
+                progressBar.MaximumValue = level;
+                Interface.undoStack.Clear();
+                Interface.undoStack.Clear();
+                btnRedo.Enabled = true;
+                btnUndo.Enabled = true;
+                s.ResetMatrix(Solution.rootMatrix);
+                s.ResetMatrix(CheckBoardManager.curMap);
+                Solution.rootMatrix[0, 0] = RanDomNumBer(1, 9);
+                Solution.rootMatrix[2, 7] = RanDomNumBer(1, 9);
+                Solution.rootMatrix[7, 2] = RanDomNumBer(1, 9);
+                Solution.rootMatrix[8, 8] = RanDomNumBer(1, 9);
+                Solution.rootMatrix[4, 4] = RanDomNumBer(1, 9);
+                s.Solve_Sodoku();
+                DelCell(Solution.rootMatrix, level);
+                if (progressBar.Value == level)
+                {
+                    ChessBoard.CreateNewMatrix();
+
+                    progressBar.Visible = false;
+                }
+                level = 0;
+                isNewGame = true;
             }
-            btnRender.Enabled = false;
+            else MessageBox.Show("Vui lòng chọn level trước khi bắt đầu.", "Waring");
         }
 
 
@@ -142,7 +150,19 @@ namespace Sudoku
             else if (cbbLevel.Text == "Easy") level = 24;
             else if (cbbLevel.Text == "Medium") level = 28;
             else if (cbbLevel.Text == "Hard") level = 37;
-            btnRender.Enabled = true;
+           
+        }
+
+      
+
+        private void bunifuThinButton23_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void bunifuThinButton22_Click(object sender, EventArgs e)
+        {
+            bunifuThinButton23_Click(sender, e);
         }
     }
    
