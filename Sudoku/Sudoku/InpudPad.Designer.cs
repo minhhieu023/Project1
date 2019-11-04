@@ -33,9 +33,10 @@
             // 
             // btnHint
             // 
-            this.btnHint.Location = new System.Drawing.Point(43, 153);
+            this.btnHint.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHint.Location = new System.Drawing.Point(33, 153);
             this.btnHint.Name = "btnHint";
-            this.btnHint.Size = new System.Drawing.Size(75, 23);
+            this.btnHint.Size = new System.Drawing.Size(78, 30);
             this.btnHint.TabIndex = 0;
             this.btnHint.Text = "Hint";
             this.btnHint.UseVisualStyleBackColor = true;
@@ -44,9 +45,9 @@
             // InpudPad
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(159, 178);
+            this.ClientSize = new System.Drawing.Size(150, 195);
             this.Controls.Add(this.btnHint);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "InpudPad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

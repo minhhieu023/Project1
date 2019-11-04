@@ -11,32 +11,6 @@ namespace Sudoku
     {
         #region Properties
 
-        public static int[,] rootMatrix = new int[9, 9]
-            {
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-               {0,0,0,0,0,0,0,0,0},
-            };
-
-        //{   
-        //    {5,0,0,0,7,0,0,1,0},
-        //    {0,0,2,0,9,0,0,0,0 },
-        //    {0,0,0,0,0,2,0,6,0 } ,
-        //    {0,0,0,0,6,0,4,0,0 },
-        //    {0,0,0,0,0,0,0,0,0 },
-        //    {0,0,0,9,0,0,8,0,6 },
-        //    {0,0,0,0,0,0,2,0,0 },
-        //    {0,0,7,0,0,0,0,0,0 },
-        //    { 3,0,0,0,8,0,0,0,9} 
-        //};
-
-    public static int[,] solveMatrix = new int[9, 9];
         #endregion
         #region Initialize
         #endregion
@@ -67,85 +41,14 @@ namespace Sudoku
         #region Solve_Soduku
         public bool Solve_Sodoku()
         {
-            {
-                //        if (curCol == 9 )
-                //        {
-                //             if (curRow == 8)
-                //             {
-                //             for (int i = 0; i < rootMatrix.GetLength(1); i++)
-                //             {
-                //                     for (int j = 0; j < rootMatrix.GetLength(0); j++)
-                //                     {
-                //                         solveMatrix[i, j] = rootMatrix[i, j];
-                //                     }
-
-                //             }
-                //             return;
-                //             }
-                //             else
-                //             {
-                //                 Solve_Sodoku(curRow + 1, 0);
-                //             }
-
-                //        }
-                //         else 
-                //         if (rootMatrix[curRow, curCol] == 0)
-                //         {
-                //         if (curCol != preCell.Col && curRow != preCell.Row)
-                //         {
-                //             int k = 0;
-                //             for (k = 1; k <= 9; k++)
-                //             {
-                //                 if (isOK(k, curRow, curCol, rootMatrix) == 1)
-                //                 {
-                //                     rootMatrix[curRow, curCol] = k;
-                //                     preCell = new Cell(rootMatrix[curRow, curCol].ToString(), curCol, curRow);
-                //                     Solve_Sodoku(curRow, curCol + 1);
-
-                //                 }
-
-                //             }
-                //             if (isOK(9, curRow, curCol, rootMatrix) == 0)
-                //             {
-                //                 rootMatrix[curRow, curCol] = 0;
-                //                 rootMatrix[preCell.Row, preCell.Col] = 0;
-                //                 Solve_Sodoku(preCell.Row, preCell.Col);
-                //             }
-                //         }
-                //         else
-                //         {
-                //             for ( int m = Int32.Parse(preCell.Num); m <=9; m++)
-                //             {
-                //                 if (isOK(m, curRow, curCol, rootMatrix) == 1)
-                //                 {
-                //                     rootMatrix[curRow, curCol] = m;
-                //                     preCell = new Cell(rootMatrix[curRow, curCol].ToString(), curCol, curRow);
-                //                     Solve_Sodoku(curRow, curCol + 1);
-
-                //                 }
-                //             }
-                //         }
-
-
-                //         }
-
-                //         else
-                //         {
-
-                //             Solve_Sodoku(curRow, curCol + 1);
-                //      //   if (curRow == 8 && curCol == 8) return; 
-                //         }
-                ////     return;
-                ///
-            } 
                 int row = -1;
                 int col = -1;
                 bool isEmpty = true;
-                for (int i = 0; i < rootMatrix.GetLength(1); i++)
+                for (int i = 0; i < Const.rootMatrix.GetLength(1); i++)
                 {
-                    for (int j = 0; j < rootMatrix.GetLength(0); j++)
+                    for (int j = 0; j < Const.rootMatrix.GetLength(0); j++)
                     {
-                        if (rootMatrix[i, j] == 0)
+                        if (Const.rootMatrix[i, j] == 0)
                         {
                             row = i;
                             col = j;
@@ -161,26 +64,24 @@ namespace Sudoku
                         break;
                     }
                 }
-
                 // no empty space left 
                 if (isEmpty)
                 {
                     return true;
                 }
-
                 // else for each-row backtrack 
-                for (int num = 1; num <= rootMatrix.GetLength(1); num++)
+                for (int num = 1; num <= Const.rootMatrix.GetLength(1); num++)
                 {
-                    if (isOK(num, row, col, rootMatrix)==1)
+                    if (isOK(num, row, col, Const.rootMatrix) ==1)
                     {
-                        rootMatrix[row, col] = num;
+                    Const.rootMatrix[row, col] = num;
                         if (Solve_Sodoku())
                         {
-                            for (int i = 0; i < rootMatrix.GetLength(1); i++)
+                            for (int i = 0; i < Const.rootMatrix.GetLength(1); i++)
                             {
-                                  for (int j = 0; j < rootMatrix.GetLength(0); j++)
+                                  for (int j = 0; j < Const.rootMatrix.GetLength(0); j++)
                                   {
-                              solveMatrix[i, j] = rootMatrix[i, j];
+                                    Const.solveMatrix[i, j] = Const.rootMatrix[i, j];
                                   }
 
                             }
@@ -188,7 +89,7 @@ namespace Sudoku
                         }
                         else
                         {
-                            rootMatrix[row, col] = 0; // replace it 
+                            Const.rootMatrix[row, col] = 0; // replace it 
                         }
                     }
                 }

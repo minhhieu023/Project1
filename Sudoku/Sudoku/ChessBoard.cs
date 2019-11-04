@@ -14,12 +14,10 @@ namespace Sudoku
         public Point defaultPoint = new Point(0, 0);
         Solution solution = new Solution();
         public  InpudPad inpuPad;
-        public Point p = new Point();
         private Panel chessBoard;
         public static bool isShow= false;
         public static List<List <Button>> matrix;
         public static int[,] curMap = new int[9,9];
-       // public static bool rendered=false;
         public Button btn;
         public static int curRow;
         public static int curCol;
@@ -51,10 +49,10 @@ namespace Sudoku
                 for (int j = 0; j < map.GetLength(0); j++)
                 {
                     btn = new Button();
-                    btn.Width = Cons.Btn_Width;
-                    btn.Height = Cons.Btn_Height;
-                    btn.Location = new Point(defaultPoint.X + Cons.Btn_Width* j, 
-                        defaultPoint.Y + Cons.Btn_Height * i);
+                    btn.Width = Const.Btn_Width;
+                    btn.Height = Const.Btn_Height;
+                    btn.Location = new Point(defaultPoint.X + Const.Btn_Width* j, 
+                        defaultPoint.Y + Const.Btn_Height * i);
                     btn.FlatStyle = FlatStyle.Popup;
                     btn.Font = new Font("Times New Roman",25  );
                     btn.ForeColor=Color.Black;
@@ -65,8 +63,7 @@ namespace Sudoku
                     btn.Click += btn_Click;              
                     btn.MouseMove += btn_MouseMove;
                     btn.MouseLeave += btn_MouseLeave;
-                
-                    
+       
                     if ((i == 0 || i == 1 || i == 2 || i == 7 || i == 8 || i == 6) &&
                         (j == 0 || j == 1 || j == 2 || j == 7 || j == 8 || j == 6) ||
                         (i == j) || (i == 3 || i == 4) && (j == 5 || j == 4) || (i == 5 || i == 4) 
@@ -94,11 +91,11 @@ namespace Sudoku
         public void PrintSolution()
         {
             //solution.Solve_Sodoku();
-            for (int i = 0; i < Solution.solveMatrix.GetLength(1); i++)
+            for (int i = 0; i < Const.solveMatrix.GetLength(1); i++)
             {
-                for (int j = 0; j < Solution.solveMatrix.GetLength(0); j++)
+                for (int j = 0; j < Const.solveMatrix.GetLength(0); j++)
                 {
-                    matrix[i][j].Text = Solution.solveMatrix[i, j].ToString();
+                    matrix[i][j].Text = Const.solveMatrix[i, j].ToString();
                     matrix[i][j].ForeColor = Color.Blue;
                 }
             }
@@ -137,21 +134,21 @@ namespace Sudoku
         #region CreatedMatrix
         public void CreateNewMatrix()
         {
-            for (int i = 0; i < Solution.rootMatrix.GetLength(1); i++)
+            for (int i = 0; i < Const.rootMatrix.GetLength(1); i++)
             {
-                for (int j = 0; j < Solution.rootMatrix.GetLength(0); j++)
+                for (int j = 0; j < Const.rootMatrix.GetLength(0); j++)
                 {                  
                     matrix[i][j].TextChanged -= Btn_TextChanged;
                     matrix[i][j].ResetText();
                     matrix[i][j].Enabled = true;
-                    if (Solution.rootMatrix[i, j] != 0)
+                    if (Const.rootMatrix[i, j] != 0)
                     {
-                        matrix[i][j].Text = Solution.rootMatrix[i, j].ToString();
+                        matrix[i][j].Text = Const.rootMatrix[i, j].ToString();
                         matrix[i][j].ForeColor = Color.Black;
                         matrix[i][j].Enabled = false;
                     }
                     else matrix[i][j].TextChanged += Btn_TextChanged;
-                    curMap[i, j] = Solution.rootMatrix[i, j];
+                    curMap[i, j] = Const.rootMatrix[i, j];
 
                 }
             }
@@ -162,8 +159,8 @@ namespace Sudoku
         {
             
             Button btn = sender as Button;
-            curCol = (btn.Location.X - defaultPoint.X) / Cons.Btn_Width;
-            curRow = (btn.Location.Y - defaultPoint.Y) / Cons.Btn_Height;
+            curCol = (btn.Location.X - defaultPoint.X) / Const.Btn_Width;
+            curRow = (btn.Location.Y - defaultPoint.Y) / Const.Btn_Height;
             if (matrix[curRow][curCol].Text != " ")
             {
                 int temp = Int32.Parse(matrix[curRow][curCol].Text);
@@ -186,14 +183,14 @@ namespace Sudoku
         { 
             matrix[curRow][curCol].Text = InpudPad.CurNumber;
             Cell cell = new Cell(matrix[curRow][curCol].Text, curCol, curRow);
-            Interface.undoStack.Push(cell);
+            Const.undoStack.Push(cell);
         }
         public void btn_Click(object sender, EventArgs e)
         { 
            
             Button btn = sender as Button;
-            curCol = (btn.Location.X - defaultPoint.X) / Cons.Btn_Width;
-            curRow = (btn.Location.Y - defaultPoint.Y) / Cons.Btn_Height;    
+            curCol = (btn.Location.X - defaultPoint.X) / Const.Btn_Width;
+            curRow = (btn.Location.Y - defaultPoint.Y) / Const.Btn_Height;    
         
             if (isShow == true)
             {
@@ -213,8 +210,7 @@ namespace Sudoku
         {
             Button btn = sender as Button;
             btn.FlatStyle = FlatStyle.Flat;
-            p.X = e.X;
-            p.Y = e.Y;
+         
         
         }
         
@@ -228,7 +224,7 @@ namespace Sudoku
         }
         public static void Hint()
         {
-            matrix[curRow][curCol].Text = Solution.solveMatrix[curRow, curCol].ToString();
+            matrix[curRow][curCol].Text = Const.solveMatrix[curRow, curCol].ToString();
             matrix[curRow][curCol].ForeColor = Color.Black;
             matrix[curRow][curCol].Enabled = false;
         }

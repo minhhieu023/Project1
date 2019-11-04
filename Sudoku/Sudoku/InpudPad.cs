@@ -32,11 +32,11 @@ namespace Sudoku
                 for (int j = 0; j < 3; j++)
                 {
                     btnNum = new Button();
-                    btnNum.Width = Cons.Btn_InputPad;
-                    btnNum.Height = Cons.Btn_InputPad;
+                    btnNum.Width = Const.Btn_InputPad;
+                    btnNum.Height = Const.Btn_InputPad;
                     btnNum.Text = num.ToString();
-                    btnNum.Location = new Point(newPoint.X + Cons.Btn_InputPad*j, 
-                        newPoint.Y + Cons.Btn_InputPad*i);
+                    btnNum.Location = new Point(newPoint.X + Const.Btn_InputPad*j, 
+                        newPoint.Y + Const.Btn_InputPad*i);
                     num++;
                     btnNum.Click += BtnNum_Click;
                     this.Controls.Add(btnNum);                  

@@ -31,13 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sudoku));
             this.btnRender = new Bunifu.Framework.UI.BunifuThinButton2();
-            this.btnUndo = new Bunifu.Framework.UI.BunifuImageButton();
-            this.btnRedo = new Bunifu.Framework.UI.BunifuImageButton();
             this.btnPause = new Bunifu.Framework.UI.BunifuThinButton2();
             this.btnSolve = new Bunifu.Framework.UI.BunifuThinButton2();
             this.cbbLevel = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUndo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timerPlay = new System.Windows.Forms.Timer(this.components);
             this.lbTime = new System.Windows.Forms.Label();
@@ -45,8 +44,7 @@
             this.pnChessBoard = new System.Windows.Forms.Panel();
             this.progressBar = new Bunifu.Framework.UI.BunifuProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.btnUndo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRedo)).BeginInit();
+            this.btnRedo = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -79,42 +77,6 @@
             this.btnRender.TabIndex = 0;
             this.btnRender.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnRender.Click += new System.EventHandler(this.btnRender_Click);
-            // 
-            // btnUndo
-            // 
-            this.btnUndo.BackColor = System.Drawing.Color.Transparent;
-            this.btnUndo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUndo.BackgroundImage")));
-            this.btnUndo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnUndo.ErrorImage = null;
-            this.btnUndo.Image = ((System.Drawing.Image)(resources.GetObject("btnUndo.Image")));
-            this.btnUndo.ImageActive = null;
-            this.btnUndo.InitialImage = null;
-            this.btnUndo.Location = new System.Drawing.Point(104, 286);
-            this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(65, 64);
-            this.btnUndo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnUndo.TabIndex = 12;
-            this.btnUndo.TabStop = false;
-            this.btnUndo.Zoom = 10;
-            this.btnUndo.Click += new System.EventHandler(this.Button1_Click);
-            // 
-            // btnRedo
-            // 
-            this.btnRedo.BackColor = System.Drawing.Color.Transparent;
-            this.btnRedo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRedo.BackgroundImage")));
-            this.btnRedo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRedo.ErrorImage = null;
-            this.btnRedo.Image = ((System.Drawing.Image)(resources.GetObject("btnRedo.Image")));
-            this.btnRedo.ImageActive = null;
-            this.btnRedo.InitialImage = null;
-            this.btnRedo.Location = new System.Drawing.Point(190, 286);
-            this.btnRedo.Name = "btnRedo";
-            this.btnRedo.Size = new System.Drawing.Size(65, 64);
-            this.btnRedo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnRedo.TabIndex = 11;
-            this.btnRedo.TabStop = false;
-            this.btnRedo.Zoom = 10;
-            this.btnRedo.Click += new System.EventHandler(this.Button2_Click);
             // 
             // btnPause
             // 
@@ -166,7 +128,7 @@
             this.btnSolve.Size = new System.Drawing.Size(122, 47);
             this.btnSolve.TabIndex = 0;
             this.btnSolve.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnSolve.Click += new System.EventHandler(this.Button3_Click);
+            this.btnSolve.Click += new System.EventHandler(this.BtnSolve_Click);
             // 
             // cbbLevel
             // 
@@ -199,9 +161,9 @@
             // 
             this.panel1.BackColor = System.Drawing.Color.LightBlue;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Controls.Add(this.btnRender);
-            this.panel1.Controls.Add(this.btnUndo);
             this.panel1.Controls.Add(this.btnRedo);
+            this.panel1.Controls.Add(this.btnUndo);
+            this.panel1.Controls.Add(this.btnRender);
             this.panel1.Controls.Add(this.btnPause);
             this.panel1.Controls.Add(this.btnSolve);
             this.panel1.Controls.Add(this.cbbLevel);
@@ -210,6 +172,22 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(349, 359);
             this.panel1.TabIndex = 0;
+            // 
+            // btnUndo
+            // 
+            this.btnUndo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUndo.BackgroundImage")));
+            this.btnUndo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnUndo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnUndo.FlatAppearance.BorderSize = 0;
+            this.btnUndo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnUndo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnUndo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUndo.Location = new System.Drawing.Point(104, 286);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(65, 64);
+            this.btnUndo.TabIndex = 13;
+            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.BtnUndo_Click);
             // 
             // pictureBox1
             // 
@@ -286,6 +264,22 @@
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
             // 
+            // btnRedo
+            // 
+            this.btnRedo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRedo.BackgroundImage")));
+            this.btnRedo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRedo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnRedo.FlatAppearance.BorderSize = 0;
+            this.btnRedo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnRedo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRedo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRedo.Location = new System.Drawing.Point(199, 286);
+            this.btnRedo.Name = "btnRedo";
+            this.btnRedo.Size = new System.Drawing.Size(65, 64);
+            this.btnRedo.TabIndex = 14;
+            this.btnRedo.UseVisualStyleBackColor = true;
+            this.btnRedo.Click += new System.EventHandler(this.BtnRedo_Click);
+            // 
             // Sudoku
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -302,8 +296,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sudoku";
             this.Load += new System.EventHandler(this.Sudoku_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.btnUndo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btnRedo)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel3.ResumeLayout(false);
@@ -318,8 +310,6 @@
         private System.Windows.Forms.ComboBox cbbLevel;
         private Bunifu.Framework.UI.BunifuThinButton2 btnSolve;
         private Bunifu.Framework.UI.BunifuThinButton2 btnPause;
-        private Bunifu.Framework.UI.BunifuImageButton btnRedo;
-        private Bunifu.Framework.UI.BunifuImageButton btnUndo;
         private Bunifu.Framework.UI.BunifuThinButton2 btnRender;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel1;
@@ -330,6 +320,8 @@
         private System.Windows.Forms.Panel pnChessBoard;
         private Bunifu.Framework.UI.BunifuProgressBar progressBar;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.Button btnRedo;
     }
 }
 

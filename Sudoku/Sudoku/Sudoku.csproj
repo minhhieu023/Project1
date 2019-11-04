@@ -67,14 +67,13 @@
   <ItemGroup>
     <Compile Include="Cell.cs" />
     <Compile Include="ChessBoard.cs" />
-    <Compile Include="Interface.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cons.cs" />
+    <Compile Include="Const.cs" />
     <Compile Include="InpudPad.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -22,7 +22,7 @@ namespace Sudoku
             this.row = row;
             this.num = num;
         }
-        
-       
+        public static Stack<Cell> undoStack = new Stack<Cell>();
+        public static Stack<Cell> redoStack = new Stack<Cell>();
     }
 }

@@ -30,7 +30,7 @@ namespace Sudoku
         {
             InitializeComponent();
             chessBoard = new ChessBoard(pnChessBoard);
-            chessBoard.LoadChessBoard(Solution.rootMatrix);
+            chessBoard.LoadChessBoard(Const.rootMatrix);
             progressBar.Visible = false;
             cbbLevel.Focus();
             btnSolve.Visible = false;
@@ -41,14 +41,13 @@ namespace Sudoku
         }
 
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void BtnUndo_Click(object sender, EventArgs e)
         {
-
-            if (Interface.undoStack.Count != 0)
+            if (Const.undoStack.Count != 0)
             {
-                var temp = Interface.undoStack.Pop();
+                var temp = Const.undoStack.Pop();
                 ChessBoard.curMap[temp.Row, temp.Col] = 0;
-                Interface.redoStack.Push(temp);
+                Const.redoStack.Push(temp);
                 ChessBoard.matrix[temp.Row][temp.Col].Text = temp.Num;
                 if (oldRow != -1 && (oldCol != temp.Col || oldRow != temp.Row)
                     && oldCol != 1)
@@ -58,30 +57,36 @@ namespace Sudoku
             }
             else
             {
-                ChessBoard.matrix[oldRow][oldCol].Text = " ";
-                return;
+                if (oldCol != -1 && oldRow != -1)
+                {
+                    ChessBoard.matrix[oldRow][oldCol].Text = " ";
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show("Bạn chưa nhập số");
+                }
             }
 
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void BtnRedo_Click(object sender, EventArgs e)
         {
 
-            if (Interface.redoStack.Count != 0)
+            if (Const.redoStack.Count != 0)
             {
-                var temp = Interface.redoStack.Pop();
-                Interface.undoStack.Push(temp);
+                var temp = Const.redoStack.Pop();
+                Const.undoStack.Push(temp);
                 ChessBoard.matrix[temp.Row][temp.Col].Text = temp.Num;
             }
 
         }
 
-        private void Button3_Click(object sender, EventArgs e)
+        private void BtnSolve_Click(object sender, EventArgs e)
         {
             if (isNewGame == true)
                 chessBoard.PrintSolution();
-            else MessageBox.Show("Bạn chưa bấm New Game", "Waring");
-           
+            else MessageBox.Show("Bạn chưa bấm New Game", "Waring"); 
         }
 
         private void Sudoku_Load(object sender, EventArgs e)
@@ -127,19 +132,21 @@ namespace Sudoku
                 progressBar.Visible = true;
                 progressBar.Value = 0;
                 progressBar.MaximumValue = level;
-                Interface.undoStack.Clear();
-                Interface.undoStack.Clear();
-                s.ResetMatrix(Solution.rootMatrix);
+                Const.undoStack.Clear();
+                Const.undoStack.Clear();
+                oldCol = -1;
+                oldRow = -1;
+                s.ResetMatrix(Const.rootMatrix);
                 s.ResetMatrix(ChessBoard.curMap);
                 //reset static value and function
-                Solution.rootMatrix[0, 0] = RanDomNumBer(1, 9);
-                Solution.rootMatrix[2, 7] = RanDomNumBer(1, 9);
-                Solution.rootMatrix[7, 2] = RanDomNumBer(1, 9);
-                Solution.rootMatrix[8, 8] = RanDomNumBer(1, 9);
-                Solution.rootMatrix[4, 4] = RanDomNumBer(1, 9);
+                Const.rootMatrix[0, 0] = RanDomNumBer(1, 9);
+                Const.rootMatrix[2, 7] = RanDomNumBer(1, 9);
+                Const.rootMatrix[7, 2] = RanDomNumBer(1, 9);
+                Const.rootMatrix[8, 8] = RanDomNumBer(1, 9);
+                Const.rootMatrix[4, 4] = RanDomNumBer(1, 9);
                 //random pre_value;
                 s.Solve_Sodoku();
-                DelCell(Solution.rootMatrix, level);
+                DelCell(Const.rootMatrix, level);
                 //solved with pre_value and dell n value with level 
                 if (progressBar.Value == level)
                 {
@@ -152,7 +159,7 @@ namespace Sudoku
                 timerPlay.Enabled = true;
                 stopwatch.Restart();
             //    stopwatch.Start();
-                lbTime.Visible = true;
+                lbTime.Visible = true; 
 
             }
             else MessageBox.Show("Vui lòng chọn level trước khi bắt đầu.", "Waring");
@@ -170,10 +177,6 @@ namespace Sudoku
            
            
         }
-
-
-
-
         private void timerPlay_Tick(object sender, EventArgs e)
         {
 
@@ -212,8 +215,6 @@ namespace Sudoku
                 btnRedo.Visible = true;
                 pnChessBoard.Visible = true;
             }
-
-
         }
 
       
