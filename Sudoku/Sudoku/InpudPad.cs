@@ -48,7 +48,7 @@ namespace Sudoku
             Button btnNum = sender as Button;
             isClick = true;
             curNumber = btnNum.Text;
-            CheckBoardManager.ProcessInsertText();
+            ChessBoard.ProcessInsertText();
 
 
         }
@@ -62,12 +62,12 @@ namespace Sudoku
 
         private void InpudPad_FormClosing(object sender, FormClosingEventArgs e)
         {
-            CheckBoardManager.isShow = false;
+            ChessBoard.isShow = false;
         }
 
         private void btnHint_Click(object sender, EventArgs e)
         {
-            CheckBoardManager.Hint();
+            ChessBoard.Hint();
         }
     }
 }

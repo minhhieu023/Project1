@@ -14,23 +14,30 @@ namespace Sudoku
     public partial class Sudoku : Form
     {
         #region Properties
-        CheckBoardManager ChessBoard;
+        ChessBoard chessBoard;
         Solution s = new Solution();
         private int level=0;
-        public static int[,] virtualMatrix;
         int oldRow = -1;
         int oldCol = -1;
         private bool isNewGame = false;
-      
+        private TimeSpan elapsed;
+        private readonly Stopwatch stopwatch = new Stopwatch();  
+        private bool isPause = false;
+
 
         #endregion
         public Sudoku()
         {
             InitializeComponent();
-            ChessBoard = new CheckBoardManager(pnChessBoard);
-            ChessBoard.LoadChessBoard(Solution.rootMatrix);
+            chessBoard = new ChessBoard(pnChessBoard);
+            chessBoard.LoadChessBoard(Solution.rootMatrix);
             progressBar.Visible = false;
-
+            cbbLevel.Focus();
+            btnSolve.Visible = false;
+            btnPause.Visible = false;
+            btnUndo.Visible = false;
+            btnRedo.Visible = false;
+            
         }
 
 
@@ -40,18 +47,18 @@ namespace Sudoku
             if (Interface.undoStack.Count != 0)
             {
                 var temp = Interface.undoStack.Pop();
-                CheckBoardManager.curMap[temp.Row, temp.Col] = 0;
+                ChessBoard.curMap[temp.Row, temp.Col] = 0;
                 Interface.redoStack.Push(temp);
-                CheckBoardManager.matrix[temp.Row][temp.Col].Text = temp.Num;
+                ChessBoard.matrix[temp.Row][temp.Col].Text = temp.Num;
                 if (oldRow != -1 && (oldCol != temp.Col || oldRow != temp.Row)
                     && oldCol != 1)
-                    CheckBoardManager.matrix[oldRow][oldCol].Text = " ";
+                    ChessBoard.matrix[oldRow][oldCol].Text = " ";
                 oldRow = temp.Row;
                 oldCol = temp.Col;
             }
             else
             {
-                CheckBoardManager.matrix[oldRow][oldCol].Text = " ";
+                ChessBoard.matrix[oldRow][oldCol].Text = " ";
                 return;
             }
 
@@ -64,7 +71,7 @@ namespace Sudoku
             {
                 var temp = Interface.redoStack.Pop();
                 Interface.undoStack.Push(temp);
-                CheckBoardManager.matrix[temp.Row][temp.Col].Text = temp.Num;
+                ChessBoard.matrix[temp.Row][temp.Col].Text = temp.Num;
             }
 
         }
@@ -72,7 +79,7 @@ namespace Sudoku
         private void Button3_Click(object sender, EventArgs e)
         {
             if (isNewGame == true)
-                ChessBoard.PrintSolution();
+                chessBoard.PrintSolution();
             else MessageBox.Show("Bạn chưa bấm New Game", "Waring");
            
         }
@@ -113,30 +120,40 @@ namespace Sudoku
         {
             if (level != 0)
             {
+                btnSolve.Visible = true;
+                btnPause.Visible = true;
+                btnUndo.Visible = true;
+                btnRedo.Visible = true;
                 progressBar.Visible = true;
                 progressBar.Value = 0;
                 progressBar.MaximumValue = level;
                 Interface.undoStack.Clear();
                 Interface.undoStack.Clear();
-                btnRedo.Enabled = true;
-                btnUndo.Enabled = true;
                 s.ResetMatrix(Solution.rootMatrix);
-                s.ResetMatrix(CheckBoardManager.curMap);
+                s.ResetMatrix(ChessBoard.curMap);
+                //reset static value and function
                 Solution.rootMatrix[0, 0] = RanDomNumBer(1, 9);
                 Solution.rootMatrix[2, 7] = RanDomNumBer(1, 9);
                 Solution.rootMatrix[7, 2] = RanDomNumBer(1, 9);
                 Solution.rootMatrix[8, 8] = RanDomNumBer(1, 9);
                 Solution.rootMatrix[4, 4] = RanDomNumBer(1, 9);
+                //random pre_value;
                 s.Solve_Sodoku();
                 DelCell(Solution.rootMatrix, level);
+                //solved with pre_value and dell n value with level 
                 if (progressBar.Value == level)
                 {
-                    ChessBoard.CreateNewMatrix();
+                    chessBoard.CreateNewMatrix();
 
                     progressBar.Visible = false;
                 }
                 level = 0;
                 isNewGame = true;
+                timerPlay.Enabled = true;
+                stopwatch.Restart();
+            //    stopwatch.Start();
+                lbTime.Visible = true;
+
             }
             else MessageBox.Show("Vui lòng chọn level trước khi bắt đầu.", "Waring");
         }
@@ -151,19 +168,55 @@ namespace Sudoku
             else if (cbbLevel.Text == "Medium") level = 28;
             else if (cbbLevel.Text == "Hard") level = 37;
            
-        }
-
-      
-
-        private void bunifuThinButton23_Click(object sender, EventArgs e)
-        {
            
         }
 
-        private void bunifuThinButton22_Click(object sender, EventArgs e)
+
+
+
+        private void timerPlay_Tick(object sender, EventArgs e)
         {
-            bunifuThinButton23_Click(sender, e);
+
+            elapsed = stopwatch.Elapsed;
+            string text = "";
+            text += elapsed.Hours.ToString("00") + ":" +
+            elapsed.Minutes.ToString("00") + ":" +
+            elapsed.Seconds.ToString("00");
+            lbTime.Text = text;
+
         }
+
+        private void btnPause_Click(object sender, EventArgs e)
+        {
+            if (isPause == false)
+            {
+                stopwatch.Stop();
+                timerPlay.Enabled = false;
+                btnPause.ButtonText = "Resume";
+                isPause = true;
+                btnRender.Visible = false;
+                btnSolve.Visible = false;
+                btnUndo.Visible = false;
+                btnRedo.Visible = false;
+                pnChessBoard.Visible = false;
+            }
+            else
+            {
+                stopwatch.Start();
+                timerPlay.Enabled = true;
+                btnPause.ButtonText = "Pause";
+                isPause = false;
+                btnRender.Visible = true;
+                btnSolve.Visible = true;
+                btnUndo.Visible = true;
+                btnRedo.Visible = true;
+                pnChessBoard.Visible = true;
+            }
+
+
+        }
+
+      
     }
    
 }
