@@ -83,7 +83,6 @@ namespace Sudoku
                                   {
                                     Const.solveMatrix[i, j] = Const.rootMatrix[i, j];
                                   }
-
                             }
                             return true;
                         }

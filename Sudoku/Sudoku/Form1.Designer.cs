@@ -36,6 +36,7 @@
             this.cbbLevel = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRedo = new System.Windows.Forms.Button();
             this.btnUndo = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timerPlay = new System.Windows.Forms.Timer(this.components);
@@ -44,7 +45,6 @@
             this.pnChessBoard = new System.Windows.Forms.Panel();
             this.progressBar = new Bunifu.Framework.UI.BunifuProgressBar();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.btnRedo = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -173,6 +173,22 @@
             this.panel1.Size = new System.Drawing.Size(349, 359);
             this.panel1.TabIndex = 0;
             // 
+            // btnRedo
+            // 
+            this.btnRedo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRedo.BackgroundImage")));
+            this.btnRedo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRedo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.btnRedo.FlatAppearance.BorderSize = 0;
+            this.btnRedo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnRedo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnRedo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRedo.Location = new System.Drawing.Point(199, 286);
+            this.btnRedo.Name = "btnRedo";
+            this.btnRedo.Size = new System.Drawing.Size(65, 64);
+            this.btnRedo.TabIndex = 14;
+            this.btnRedo.UseVisualStyleBackColor = true;
+            this.btnRedo.Click += new System.EventHandler(this.BtnRedo_Click);
+            // 
             // btnUndo
             // 
             this.btnUndo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUndo.BackgroundImage")));
@@ -263,22 +279,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
-            // 
-            // btnRedo
-            // 
-            this.btnRedo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnRedo.BackgroundImage")));
-            this.btnRedo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRedo.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.btnRedo.FlatAppearance.BorderSize = 0;
-            this.btnRedo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnRedo.FlatAppearance.MouseOverBackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnRedo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRedo.Location = new System.Drawing.Point(199, 286);
-            this.btnRedo.Name = "btnRedo";
-            this.btnRedo.Size = new System.Drawing.Size(65, 64);
-            this.btnRedo.TabIndex = 14;
-            this.btnRedo.UseVisualStyleBackColor = true;
-            this.btnRedo.Click += new System.EventHandler(this.BtnRedo_Click);
             // 
             // Sudoku
             // 

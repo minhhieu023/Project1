@@ -27,7 +27,6 @@ namespace Sudoku
             set => chessBoard = value;
         }
         #endregion
-
         #region Initialize
         public ChessBoard(Panel chessBoard )
         {
