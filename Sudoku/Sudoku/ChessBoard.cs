@@ -69,7 +69,7 @@ namespace Sudoku
                         && (j == 3 || j == 4))
 
                     {
-                        btn.BackColor = Color.MediumSeaGreen;                      
+                        btn.BackColor = Color.LightBlue;                      
                     }
                     //if (map[i, j] != 0)
                     //{              
