@@ -13,22 +13,22 @@ namespace Sudoku
 {
     public partial class Sudoku : Form
     {
-        #region Properties
+
+        #region Value
         ChessBoard chessBoard;
         Solution s = new Solution();
-        private int level=0;
-        int oldRow = -1;
-        int oldCol = -1;
-        private bool isNewGame = false;
-        private TimeSpan elapsed;
-        private readonly Stopwatch stopwatch = new Stopwatch();  
+        private int level = 0;
+        int oldRow = -1;  //Gán giá trị ban đầu cho vị trí cũ của CELL trong Stack
+        int oldCol = -1; //Gán giá trị ban đầu cho vị trí cũ của CELL trong Stack
+        private bool isNewGame = false;  //Biến nhị bool kiểm tra đã bấm NewGame hay chưa     
+      //  public readonly Stopwatch stopwatch = new Stopwatch();  
         private bool isPause = false;
-
-
         #endregion
         public Sudoku()
         {
             InitializeComponent();
+            Const.undoStack.Clear();
+            Const.redoStack.Clear();
             chessBoard = new ChessBoard(pnChessBoard);
             chessBoard.LoadChessBoard(Const.rootMatrix);
             lbName.Text = Const.player.PlayerName;
@@ -37,17 +37,15 @@ namespace Sudoku
             btnSolve.Visible = false;
             btnPause.Visible = false;
             btnUndo.Visible = false;
-            btnRedo.Visible = false;
-            
+            btnRedo.Visible = false;          
         }
-
-
+        #region Event
         private void BtnUndo_Click(object sender, EventArgs e)
         {
             if (Const.undoStack.Count != 0)
             {
                 var temp = Const.undoStack.Pop();
-                ChessBoard.curMap[temp.Row, temp.Col] = 0;
+                Const.curMap[temp.Row, temp.Col] = 0;
                 Const.redoStack.Push(temp);
                 ChessBoard.matrix[temp.Row][temp.Col].Text = temp.Num;
                 if (oldRow != -1 && (oldCol != temp.Col || oldRow != temp.Row)
@@ -138,7 +136,7 @@ namespace Sudoku
                 oldCol = -1;
                 oldRow = -1;
                 s.ResetMatrix(Const.rootMatrix);
-                s.ResetMatrix(ChessBoard.curMap);
+                s.ResetMatrix(Const.curMap);
                 //reset static value and function
                 Const.rootMatrix[0, 0] = RanDomNumBer(1, 9);
                 Const.rootMatrix[2, 7] = RanDomNumBer(1, 9);
@@ -158,10 +156,8 @@ namespace Sudoku
                 level = 0;
                 isNewGame = true;
                 timerPlay.Enabled = true;
-                stopwatch.Restart();
-            //    stopwatch.Start();
+                Const.stopwatch.Restart();        
                 lbTime.Visible = true; 
-
             }
             else MessageBox.Show("Vui lòng chọn level trước khi bắt đầu.", "Waring");
         }
@@ -180,21 +176,19 @@ namespace Sudoku
         }
         private void timerPlay_Tick(object sender, EventArgs e)
         {
-
-            elapsed = stopwatch.Elapsed;
+            Const.player.Time = Const.stopwatch.Elapsed;
             string text = "";
-            text += elapsed.Hours.ToString("00") + ":" +
-            elapsed.Minutes.ToString("00") + ":" +
-            elapsed.Seconds.ToString("00");
+            text += Const.player.Time.Hours.ToString("00") + ":" +
+            Const.player.Time.Minutes.ToString("00") + ":" +
+            Const.player.Time.Seconds.ToString("00");
             lbTime.Text = text;
-
         }
 
         private void btnPause_Click(object sender, EventArgs e)
         {
             if (isPause == false)
             {
-                stopwatch.Stop();
+                Const.stopwatch.Stop();
                 timerPlay.Enabled = false;
                 btnPause.ButtonText = "Resume";
                 isPause = true;
@@ -206,7 +200,7 @@ namespace Sudoku
             }
             else
             {
-                stopwatch.Start();
+                Const.stopwatch.Start();
                 timerPlay.Enabled = true;
                 btnPause.ButtonText = "Pause";
                 isPause = false;
@@ -217,8 +211,6 @@ namespace Sudoku
                 pnChessBoard.Visible = true;
             }
         }
-
-      
+        #endregion
     }
-   
 }

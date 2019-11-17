@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Sudoku
 {
+    //Đối tượng Cell quản lý các thuộc tính của từng ô gồm dòng, cột, giá trị.
+    //Được khởi tạo cùng với Stask để thực hiện chức năng undo và redo
     public class Cell
     {
         private  string num;
         private  int row;
         private  int col;
-
-     
         public int Row { get => row; set => row = value; }
         public int Col { get => col; set => col = value; }
         public string Num { get => num; set => num = value; }
@@ -22,7 +22,7 @@ namespace Sudoku
             this.row = row;
             this.num = num;
         }
-        public static Stack<Cell> undoStack = new Stack<Cell>();
-        public static Stack<Cell> redoStack = new Stack<Cell>();
+      //  public static Stack<Cell> undoStack = new Stack<Cell>();
+      // public static Stack<Cell> redoStack = new Stack<Cell>();
     }
 }

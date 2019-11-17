@@ -11,16 +11,20 @@ namespace Sudoku
     public class ChessBoard
     {
         #region Propeties
-        public Point defaultPoint = new Point(0, 0);
+        private Panel chessBoard; //bảng game là 1 panel
+        
+        public Point defaultPoint = new Point(0, 0);//Location mặc định, sử dụng để khởi tạo bảng game đầu tiên
         Solution solution = new Solution();
         public  InpudPad inpuPad;
-        private Panel chessBoard;
-        public static bool isShow= false;
-        public static List<List <Button>> matrix;
-        public static int[,] curMap = new int[9,9];
-        public Button btn;
-        public static int curRow;
-        public static int curCol;
+        public Button btn; // Khai báo 1 button
+
+        public static bool isShow= false; //kiểm tra inputpad đã mở hay chưa
+        public static List<List <Button>> matrix; //Khởi tạo 2 list lồng nhau(như 1 mảng 2 chiều), phần tử của list là các button.
+      //
+
+        public static int curCol; //Vị trí hiện tại ứng với ma trận của khi trỏ vào button
+        public static int curRow; //Vị trí hiện tại ứng với ma trận của khi trỏ vào button
+
         public Panel PnChessBoard
         {
             get => chessBoard;
@@ -32,12 +36,10 @@ namespace Sudoku
         {
             this.PnChessBoard = chessBoard;        
         }
-       
         #endregion
-
         #region Methods
         #region LoadChessBoard
-
+        //Khởi tạo 1 ma trận 9x9 gồm 81 Button. Ban đầu map có giá trị {0}
         public void LoadChessBoard(int[,] map) 
         {
        
@@ -70,26 +72,16 @@ namespace Sudoku
 
                     {
                         btn.BackColor = Color.MediumSeaGreen;                      
-                    }
-                    //if (map[i, j] != 0)
-                    //{              
-                    //    btn.Text = map[i, j].ToString();           
-                    //    btn.ForeColor = Color.Black;
-                    //    btn.Enabled = false;                              
-                    //}
-                    //else btn.TextChanged += Btn_TextChanged;
-                    //curMap[i, j] = map[i, j];
-
-                 //   rendered = true;
+                    }              
                 }
             }
         }
 
         #endregion
         #region PrintSolution
+        //Ứng dụng hàm giải ở class Solution để giải quyết bài toán khi gặp khó khăn.
         public void PrintSolution()
         {
-            //solution.Solve_Sodoku();
             for (int i = 0; i < Const.solveMatrix.GetLength(1); i++)
             {
                 for (int j = 0; j < Const.solveMatrix.GetLength(0); j++)
@@ -101,6 +93,9 @@ namespace Sudoku
         }
         #endregion
         #region AlwaysCheck
+        //Liên tục kiểm tra các số được nhập vào
+        //Nếu đúng có màu xanh
+        //Sai thì có màu đỏ
         public int AlwaysCheckIsOK(int[,] curMap)
         {
             for (int i = 0; i < curMap.GetLength(1); i++)
@@ -131,6 +126,7 @@ namespace Sudoku
         }
         #endregion
         #region CreatedMatrix
+        //Gán các sự kiện của button cho ma trận khi render các số.
         public void CreateNewMatrix()
         {
             for (int i = 0; i < Const.rootMatrix.GetLength(1); i++)
@@ -147,13 +143,24 @@ namespace Sudoku
                         matrix[i][j].Enabled = false;
                     }
                     else matrix[i][j].TextChanged += Btn_TextChanged;
-                    curMap[i, j] = Const.rootMatrix[i, j];
-
+                    Const.curMap[i, j] = Const.rootMatrix[i, j];
                 }
             }
+            Const.undoStack.Clear();
+            Const.redoStack.Clear();
+        }
+        #endregion
+        #region Hint 
+        //Cho phép người chơi shown giá trị đúng của 1 button
+        public static void Hint()
+        {
+            matrix[curRow][curCol].Text = Const.solveMatrix[curRow, curCol].ToString();
+            matrix[curRow][curCol].ForeColor = Color.Black;
+           // matrix[curRow][curCol].Enabled = false;
         }
         #endregion
         #region Envent
+        //Các event của button
         private void Btn_TextChanged(object sender, EventArgs e)
         {
             
@@ -163,22 +170,24 @@ namespace Sudoku
             if (matrix[curRow][curCol].Text != " ")
             {
                 int temp = Int32.Parse(matrix[curRow][curCol].Text);
-                if (solution.isOK(temp, curRow, curCol, curMap) == 1)
+                if (solution.isOK(temp, curRow, curCol, Const.curMap) == 1)
                 {
                     btn.ForeColor = Color.Blue;               
                 }
                 else btn.ForeColor = Color.Red;
-                curMap[curRow, curCol] = temp;
-                if (AlwaysCheckIsOK(curMap) == 1)
-
+                Const.curMap[curRow, curCol] = temp;
+                if (AlwaysCheckIsOK(Const.curMap) == 1) //Khi tất cả đều điền đúng thì sẽ hiện thông báo đúng.
                 {
-                    if( isShow == true)
+                    Const.stopwatch.Reset();
+                    if ( isShow == true)
                     this.inpuPad.Close();
-                    MessageBox.Show("You win");
+                    FormWin formWin = new FormWin();
+                    formWin.ShowDialog();
+                    formWin.ShowInTaskbar = false;       
                 }                 
             }
         }
-        public static void ProcessInsertText()
+        public static void ProcessInsertText() //Lấy giá trị từ bảng inputpab bỏ vào trong button và đồng thời bỏ nó vào trong Stack để undo
         { 
             matrix[curRow][curCol].Text = InpudPad.CurNumber;
             Cell cell = new Cell(matrix[curRow][curCol].Text, curCol, curRow);
@@ -195,10 +204,12 @@ namespace Sudoku
             {
                 if (curRow == 8 || curRow == 7)
                 {
-                    inpuPad.Location = new Point(defaultPoint.X +180 + btn.Location.X, defaultPoint.Y - 120 + btn.Location.Y); 
+                    inpuPad.Location = new Point(defaultPoint.X +180 + 
+                        btn.Location.X, defaultPoint.Y - 120 + btn.Location.Y); 
                 }
                 else
-                    inpuPad.Location = new Point(defaultPoint.X + 180 + btn.Location.X, defaultPoint.Y + 180 + btn.Location.Y);
+                    inpuPad.Location = new Point(defaultPoint.X + 180 +
+                        btn.Location.X, defaultPoint.Y + 180 + btn.Location.Y);
                 inpuPad.Focus();          
             }
             else
@@ -207,10 +218,12 @@ namespace Sudoku
                 inpuPad.Show();
                 if (curRow == 8 || curRow == 7)
                 {
-                    inpuPad.Location = new Point(defaultPoint.X +180 + btn.Location.X, defaultPoint.Y -120 + btn.Location.Y);
+                    inpuPad.Location = new Point(defaultPoint.X +180 + 
+                        btn.Location.X, defaultPoint.Y -120 + btn.Location.Y);
                 }
                 else
-                inpuPad.Location = new Point(defaultPoint.X + 180 + btn.Location.X, defaultPoint.Y + 180 + btn.Location.Y);
+                inpuPad.Location = new Point(defaultPoint.X + 180 + 
+                    btn.Location.X, defaultPoint.Y + 180 + btn.Location.Y);
               
                 isShow = true;               
             }              
@@ -230,15 +243,9 @@ namespace Sudoku
             
            
         }
-        public static void Hint()
-        {
-            matrix[curRow][curCol].Text = Const.solveMatrix[curRow, curCol].ToString();
-            matrix[curRow][curCol].ForeColor = Color.Black;
-          //  matrix[curRow][curCol].Enabled = false;
-        }
+      
         #endregion
        
         #endregion
-
     }
 }

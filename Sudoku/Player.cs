@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Sudoku
 {
+    //Đối tượng người chơi gồm tên, password và điểm ( tính bằng thời gian)
     class Player
     {
         private string playerName;
         private string passWord;
-        private DateTime dateTime;
-
+        private TimeSpan time;
         public string PlayerName { get => playerName; set => playerName = value; }
         public string PassWord { get => passWord; set => passWord = value; }
-        public DateTime DateTime { get => dateTime; set => dateTime = value; }
+        public TimeSpan Time { get => time; set => time = value; }
     }
 }

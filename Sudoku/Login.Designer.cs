@@ -38,6 +38,7 @@ namespace Sudoku
             this.label2 = new System.Windows.Forms.Label();
             this.llbRegister = new System.Windows.Forms.LinkLabel();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txtUsername
@@ -110,21 +111,33 @@ namespace Sudoku
             this.llbRegister.LinkColor = System.Drawing.SystemColors.ControlLightLight;
             this.llbRegister.Location = new System.Drawing.Point(206, 203);
             this.llbRegister.Name = "llbRegister";
-            this.llbRegister.Size = new System.Drawing.Size(77, 20);
+            this.llbRegister.Size = new System.Drawing.Size(70, 20);
             this.llbRegister.TabIndex = 6;
             this.llbRegister.TabStop = true;
-            this.llbRegister.Text = "Register";
+            this.llbRegister.Text = "Sign up";
+            this.llbRegister.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llbRegister_LinkClicked);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(114, 37);
+            this.label1.Font = new System.Drawing.Font("MS Reference Sans Serif", 26.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(120, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(187, 35);
+            this.label1.Size = new System.Drawing.Size(183, 44);
             this.label1.TabIndex = 7;
-            this.label1.Text = "WELLCOME";
+            this.label1.Text = "SODOKU";
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRegister.Location = new System.Drawing.Point(208, 172);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(75, 30);
+            this.btnRegister.TabIndex = 10;
+            this.btnRegister.Text = "OK";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // Login
             // 
@@ -133,6 +146,7 @@ namespace Sudoku
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(421, 244);
+            this.Controls.Add(this.btnRegister);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.llbRegister);
             this.Controls.Add(this.label2);
@@ -142,7 +156,7 @@ namespace Sudoku
             this.Controls.Add(this.txtUsername);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Login";
             this.Text = "Login";
@@ -165,6 +179,7 @@ namespace Sudoku
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel llbRegister;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnRegister;
 
         public object TaiKhoan { get; private set; }
     }

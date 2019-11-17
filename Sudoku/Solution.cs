@@ -9,13 +9,12 @@ namespace Sudoku
 {
     class Solution
     {
-        #region Properties
-
-        #endregion
-        #region Initialize
-        #endregion
+        //Đối tượng chưa các methods tác động trực tiếp đến ma trận.
         #region Methods
-        #region isOK
+        #region isOK _ Kiểm tra tính đúng đắn của ma trận
+        //Điều kiện đúng của ma trận
+        //Dòng và cột là các số từ 1 đến 9 không trùng nhau
+        //Từng ô 3x3 (đã được đánh dấu trên giao diện) là các số từ 1 đến 9 không trùng nhau
         public int isOK(int curValue, int row, int col, int[,] matrix)
         {
             int i = 0, j = 0;
@@ -38,7 +37,9 @@ namespace Sudoku
             return 1;
         }
         #endregion
-        #region Solve_Soduku
+        #region Solve_Soduku Thuật toán giải game Sudoku
+        //Nguồn lấy thuật toán: https://www.geeksforgeeks.org/sudoku-backtracking-7/
+        //Giải thích. Sử dụng đệ quy để giải.
         public bool Solve_Sodoku()
         {
                 int row = -1;
@@ -96,7 +97,7 @@ namespace Sudoku
         }
         #endregion
         #region ResetMatrix
-        public void ResetMatrix(int[,] matrix)
+        public void ResetMatrix(int[,] matrix) //Reset lại ma trận để bắt đầu 1 game mới
         {
             for (int i = 0; i < matrix.GetLength(1); i++)
             {
