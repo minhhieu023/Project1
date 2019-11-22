@@ -213,7 +213,6 @@ D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\bin\Debug\ja\DevEx
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\bin\Debug\ru\DevExpress.Pdf.v19.2.Core.resources.dll
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.csprojAssemblyReference.cache
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.Sudoku.resources
-D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.InpudPad.resources
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.Login.resources
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.Properties.Resources.resources
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.csproj.GenerateResource.cache
@@ -222,3 +221,4 @@ D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.c
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.exe
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.pdb
 D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.FormWin.resources
+D:\Tài Liệu Học Tập\Năm 3\Đồ án 1\Project1\Sudoku\obj\Debug\Sudoku.InputPad.resources

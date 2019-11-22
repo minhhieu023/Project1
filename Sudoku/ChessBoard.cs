@@ -8,14 +8,13 @@ using System.Windows.Forms;
 
 namespace Sudoku
 {  
-    public class ChessBoard
+    public class ChessBoard : Solution
     {
         #region Propeties
         private Panel chessBoard; //bảng game là 1 panel
         
         public Point defaultPoint = new Point(0, 0);//Location mặc định, sử dụng để khởi tạo bảng game đầu tiên
-        Solution solution = new Solution();
-        public  InpudPad inpuPad;
+        public  InputPad inpuPad;
         public Button btn; // Khai báo 1 button
 
         public static bool isShow= false; //kiểm tra inputpad đã mở hay chưa
@@ -112,7 +111,7 @@ namespace Sudoku
                 {
                     int temp = curMap[i, j];
                     curMap[i, j] = 0;
-                    if (solution.isOK(temp, i, j, curMap) == 0)
+                    if (isOK(temp, i, j, curMap) == 0)
                     {
                         curMap[i,j] = temp;
                         return 0;
@@ -159,6 +158,14 @@ namespace Sudoku
            // matrix[curRow][curCol].Enabled = false;
         }
         #endregion
+        #region Xữ lý số nhập vào từ 1 form khác
+        public static void ProcessInsertText() //Lấy giá trị từ bảng inputpab bỏ vào trong button và đồng thời bỏ nó vào trong Stack để undo
+        {
+            matrix[curRow][curCol].Text = InputPad.CurNumber;
+            Cell cell = new Cell(matrix[curRow][curCol].Text, curCol, curRow);
+            Const.undoStack.Push(cell);
+        }
+        #endregion
         #region Envent
         //Các event của button
         private void Btn_TextChanged(object sender, EventArgs e)
@@ -170,7 +177,7 @@ namespace Sudoku
             if (matrix[curRow][curCol].Text != " ")
             {
                 int temp = Int32.Parse(matrix[curRow][curCol].Text);
-                if (solution.isOK(temp, curRow, curCol, Const.curMap) == 1)
+                if (isOK(temp, curRow, curCol, Const.curMap) == 1)
                 {
                     btn.ForeColor = Color.Blue;               
                 }
@@ -187,12 +194,7 @@ namespace Sudoku
                 }                 
             }
         }
-        public static void ProcessInsertText() //Lấy giá trị từ bảng inputpab bỏ vào trong button và đồng thời bỏ nó vào trong Stack để undo
-        { 
-            matrix[curRow][curCol].Text = InpudPad.CurNumber;
-            Cell cell = new Cell(matrix[curRow][curCol].Text, curCol, curRow);
-            Const.undoStack.Push(cell);
-        }
+     
         public void btn_Click(object sender, EventArgs e)
         { 
            
@@ -214,7 +216,7 @@ namespace Sudoku
             }
             else
             {
-                inpuPad = new InpudPad();
+                inpuPad = new InputPad();
                 inpuPad.Show();
                 if (curRow == 8 || curRow == 7)
                 {

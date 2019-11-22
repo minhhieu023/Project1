@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace Sudoku
 {
-    class Solution
+    public class Solution
     {
         //Đối tượng chưa các methods tác động trực tiếp đến ma trận.
         #region Methods
