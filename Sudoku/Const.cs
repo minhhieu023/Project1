@@ -32,7 +32,5 @@ namespace Sudoku
         public static Player player = new Player(); //Khởi tạo 1 người chơi mới. Với điểm là thời gian của người chơi.
         public static Stopwatch stopwatch = new Stopwatch(); //Dùng để dếm thời gian và lấy nó làm điểm của người chơi.
         public static int[,] curMap = new int[9, 9]; //Ma trận được thay đổi khi người chơi nhập số vào
-      
-
     }
 }

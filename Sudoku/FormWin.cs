@@ -35,7 +35,6 @@ namespace Sudoku
             Login lg = new Login();
             lg.ShowDialog();
             this.Close();
-            
             this.ShowInTaskbar = false;
         }
 

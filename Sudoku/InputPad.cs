@@ -36,7 +36,7 @@ namespace Sudoku
                     btnNum.Height = Const.Btn_InputPad;
                     btnNum.Text = num.ToString();
                     btnNum.Location = new Point(newPoint.X + Const.Btn_InputPad*j, 
-                        newPoint.Y + Const.Btn_InputPad*i);
+                    newPoint.Y + Const.Btn_InputPad*i);
                     num++;
                     btnNum.Click += BtnNum_Click;
                     this.Controls.Add(btnNum);                  
@@ -49,8 +49,6 @@ namespace Sudoku
             isClick = true;
             curNumber = btnNum.Text;
             ChessBoard.ProcessInsertText();
-
-
         }
 
  
