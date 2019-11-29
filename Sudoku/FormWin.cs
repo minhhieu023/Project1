@@ -12,6 +12,7 @@ namespace Sudoku
 {
     public partial class FormWin : Form
     {
+       // public static bool closingWin;
         public FormWin()
         {
             InitializeComponent();
@@ -22,6 +23,7 @@ namespace Sudoku
             Const.player.Time.Minutes.ToString("00") + ":" +
             Const.player.Time.Seconds.ToString("00");
             lbTimePoint.Text = text;
+         //   closingWin;
         }
         private void btnContinue_Click(object sender, EventArgs e)
         {
@@ -32,6 +34,7 @@ namespace Sudoku
         private void btnSwicth_Click(object sender, EventArgs e)
         {
             this.Hide();
+            //Login.frm.Close();
             Login lg = new Login();
             lg.ShowDialog();
             this.Close();

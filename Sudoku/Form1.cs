@@ -15,7 +15,7 @@ namespace Sudoku
     {
 
         #region Value
-        ChessBoard chessBoard;
+        ChessBoard chessBoard;      
         Solution s = new Solution();
         private int level = 0;
         int oldRow = -1;  //Gán giá trị ban đầu cho vị trí cũ của CELL trong Stack

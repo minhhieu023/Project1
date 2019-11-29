@@ -53,7 +53,6 @@ namespace Sudoku
                         {
                             row = i;
                             col = j;
-
                             // we still have some remaining 
                             // missing values in Sudoku 
                             isEmpty = false;

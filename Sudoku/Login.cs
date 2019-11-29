@@ -14,7 +14,6 @@ namespace Sudoku
     public partial class Login : Form
     {
        // Player player = new Player();
-        
         public Login()
         {
             InitializeComponent();
