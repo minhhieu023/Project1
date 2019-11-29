@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,5 +16,9 @@ namespace Sudoku
         public string PlayerName { get => playerName; set => playerName = value; }
         public string PassWord { get => passWord; set => passWord = value; }
         public TimeSpan Time { get => time; set => time = value; }
+        public Player()
+        {
+
+        }
     }
 }

@@ -9,6 +9,19 @@ namespace Sudoku
 {
     public class Solution
     {
+       public static int[,] rootMatrix = new int[9, 9] //Ma trận gốc ban đầu, ma trận gốc sẽ được random với những phần tử bị thiếu
+           {
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+               {0,0,0,0,0,0,0,0,0},
+           };
+        public static int[,] solveMatrix = new int[9, 9]; //Sau khi sử dụng hàm giải để giải ma trận thì 1 ma trận mới được sinh ra với đẩy đủ các số.
         //Đối tượng chưa các methods tác động trực tiếp đến ma trận.
         #region Methods
         #region isOK _ Kiểm tra tính đúng đắn của ma trận
@@ -45,11 +58,11 @@ namespace Sudoku
                 int row = -1;
                 int col = -1;
                 bool isEmpty = true;
-                for (int i = 0; i < Const.rootMatrix.GetLength(1); i++)
+                for (int i = 0; i < rootMatrix.GetLength(1); i++)
                 {
-                    for (int j = 0; j < Const.rootMatrix.GetLength(0); j++)
+                    for (int j = 0; j < rootMatrix.GetLength(0); j++)
                     {
-                        if (Const.rootMatrix[i, j] == 0)
+                        if (rootMatrix[i, j] == 0)
                         {
                             row = i;
                             col = j;
@@ -70,25 +83,25 @@ namespace Sudoku
                     return true;
                 }
                 // else for each-row backtrack 
-                for (int num = 1; num <= Const.rootMatrix.GetLength(1); num++)
+                for (int num = 1; num <= rootMatrix.GetLength(1); num++)
                 {
-                    if (isOK(num, row, col, Const.rootMatrix) ==1)
+                    if (isOK(num, row, col, rootMatrix) ==1)
                     {
-                    Const.rootMatrix[row, col] = num;
+                    rootMatrix[row, col] = num;
                         if (Solve_Sodoku())
                         {
-                            for (int i = 0; i < Const.rootMatrix.GetLength(1); i++)
+                            for (int i = 0; i <rootMatrix.GetLength(1); i++)
                             {
-                                  for (int j = 0; j < Const.rootMatrix.GetLength(0); j++)
+                                  for (int j = 0; j < rootMatrix.GetLength(0); j++)
                                   {
-                                    Const.solveMatrix[i, j] = Const.rootMatrix[i, j];
+                                   solveMatrix[i, j] = rootMatrix[i, j];
                                   }
                             }
                             return true;
                         }
                         else
                         {
-                            Const.rootMatrix[row, col] = 0; // replace it 
+                            rootMatrix[row, col] = 0; // replace it 
                         }
                     }
                 }

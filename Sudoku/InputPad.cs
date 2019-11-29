@@ -12,11 +12,12 @@ namespace Sudoku
 {
     public partial class InputPad : Form
     {
-        private static string curNumber;
+        public string curNumber;
         public bool isClick;
         public Point newPoint = new Point(0, 0);
         public Button btnNum;     
-        public static string CurNumber { get => curNumber; set => curNumber = value; }
+     //   public static string CurNumber { get => curNumber; set => curNumber = value; }
+        ChessBoard chessBoard = new ChessBoard();
 
         public InputPad()
         {
@@ -47,8 +48,8 @@ namespace Sudoku
         {
             Button btnNum = sender as Button;
             isClick = true;
-            curNumber = btnNum.Text;
-            ChessBoard.ProcessInsertText();
+        
+            chessBoard.ProcessInsertText(btnNum.Text);
         }
 
  
@@ -65,7 +66,7 @@ namespace Sudoku
 
         private void btnHint_Click(object sender, EventArgs e)
         {
-            ChessBoard.Hint();
+            chessBoard.Hint();
         }
     }
 }

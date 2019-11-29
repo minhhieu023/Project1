@@ -12,7 +12,8 @@ namespace Sudoku
 {
     public partial class FormWin : Form
     {
-       // public static bool closingWin;
+        // public static bool closingWin;
+        ChessBoard chessBoard = new ChessBoard();
         public FormWin()
         {
             InitializeComponent();
@@ -28,7 +29,8 @@ namespace Sudoku
         private void btnContinue_Click(object sender, EventArgs e)
         {
             Hide();
-            this.Close();           
+            this.Close();
+            this.Focus();
         }
 
         private void btnSwicth_Click(object sender, EventArgs e)
