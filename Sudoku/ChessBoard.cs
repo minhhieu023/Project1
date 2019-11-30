@@ -12,24 +12,23 @@ namespace Sudoku
     {
         #region Propeties
         private Panel chessBoard; //bảng game là 1 panel
-
         private int[,] curMap = new int[9, 9];
-       
-        private Cell cell;
-        private static Stack<Cell> undoStack = new Stack<Cell>(); // 1 Stack chứa các CELL để undo
-        private static Stack<Cell> redoStack = new Stack<Cell>();//1 Stack chứa các CELL để redo.
-        private int oldCol = -1;
-        private int oldRow = -1;
-
         private static List<List<Button>> matrix; //Khởi tạo 2 list lồng nhau(như 1 mảng 2 chiều), phần tử của list là các button.
         private Button btn; // Khai báo 1 button
         private static int curCol; //Vị trí hiện tại ứng với ma trận của khi trỏ vào button
         private static int curRow; //Vị trí hiện tại ứng với ma trận của khi trỏ vào button
+
+        private Cell cell;
+        private static Stack<Cell> undoStack = new Stack<Cell>(); // 1 Stack chứa các CELL để undo
+        private static Stack<Cell> redoStack = new Stack<Cell>();//1 Stack chứa các CELL để redo.   
+        int oldCol = -1;
+        int oldRow = -1;
         
-        private InputPad inpuPad;
+        // InputPad inpuPad;
+        InputPad inpuPad;
         public static bool isShow = false; //kiểm tra inputpad đã mở hay chưa
 
-        private Point defaultPoint = new Point(0, 0);//Location mặc định, sử dụng để khởi tạo bảng game đầu tiên
+        private Point defaultPoint = new Point(0, 0); //Location mặc định, sử dụng để khởi tạo bảng game đầu tiên
        
         public Panel PnChessBoard
         {
@@ -221,8 +220,10 @@ namespace Sudoku
         {
 
             Button btn = sender as Button;
+
             curCol = (btn.Location.X - defaultPoint.X) / Const.Btn_Width;
             curRow = (btn.Location.Y - defaultPoint.Y) / Const.Btn_Height;
+           
             if (matrix[curRow][curCol].Text != " ")
             {
                 int temp = Int32.Parse(matrix[curRow][curCol].Text);
@@ -283,6 +284,7 @@ namespace Sudoku
         #region Undo, Redo
         public void Undo()
         {
+
             if (undoStack.Count != 0)
             {
                 var temp = undoStack.Pop();
@@ -300,7 +302,8 @@ namespace Sudoku
                 if (oldCol != -1 && oldRow != -1)
                 {
                     matrix[oldRow][oldCol].Text = " ";
-                    return;
+                MessageBox.Show("Stack trống");
+                return;
                 }
                 else
                 {

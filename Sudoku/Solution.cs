@@ -9,8 +9,8 @@ namespace Sudoku
 {
     public class Solution
     {
-       public static int[,] rootMatrix = new int[9, 9] //Ma trận gốc ban đầu, ma trận gốc sẽ được random với những phần tử bị thiếu
-           {
+       public  int[,] rootMatrix = new int[9, 9] //Ma trận gốc ban đầu, ma trận gốc sẽ được random với những phần tử bị thiếu
+       {
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
@@ -20,7 +20,8 @@ namespace Sudoku
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
-           };
+           
+       };
         public static int[,] solveMatrix = new int[9, 9]; //Sau khi sử dụng hàm giải để giải ma trận thì 1 ma trận mới được sinh ra với đẩy đủ các số.
         //Đối tượng chưa các methods tác động trực tiếp đến ma trận.
         #region Methods
