@@ -9,8 +9,8 @@ namespace Sudoku
 {
     public class Solution
     {
-       public  int[,] rootMatrix = new int[9, 9] //Ma trận gốc ban đầu, ma trận gốc sẽ được random với những phần tử bị thiếu
-       {
+        public int[,] rootMatrix = new int[9, 9] //Ma trận gốc ban đầu, ma trận gốc sẽ được random với những phần tử bị thiếu
+        {
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
@@ -20,20 +20,20 @@ namespace Sudoku
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
                {0,0,0,0,0,0,0,0,0},
-           
-       };
+
+        };
         public static int[,] solveMatrix = new int[9, 9]; //Sau khi sử dụng hàm giải để giải ma trận thì 1 ma trận mới được sinh ra với đẩy đủ các số.
-        //Đối tượng chưa các methods tác động trực tiếp đến ma trận.
+                                                          //Đối tượng chưa các methods tác động trực tiếp đến ma trận.
         #region Methods
         #region isOK _ Kiểm tra tính đúng đắn của ma trận
         //Điều kiện đúng của ma trận
         //Dòng và cột là các số từ 1 đến 9 không trùng nhau
         //Từng ô 3x3 (đã được đánh dấu trên giao diện) là các số từ 1 đến 9 không trùng nhau
+       
         public int isOK(int curValue, int row, int col, int[,] matrix)
         {
             int i = 0, j = 0;
-            for (i = 0; i < 9; i++)
-            {
+            for (i = 0; i < 9; i++) {
                 if (matrix[row, i] == curValue) return 0;
             }
             for (i = 0; i < 9; i++)
@@ -51,7 +51,7 @@ namespace Sudoku
             return 1;
         }
         #endregion
-        #region Solve_Soduku Thuật toán giải game Sudoku
+        #region Solve_Soduku Thuật toán giải game Sudoku 
         //Nguồn lấy thuật toán: https://www.geeksforgeeks.org/sudoku-backtracking-7/
         //Giải thích. Sử dụng đệ quy để giải.
         public bool Solve_Sodoku()

@@ -302,7 +302,6 @@ namespace Sudoku
                 if (oldCol != -1 && oldRow != -1)
                 {
                     matrix[oldRow][oldCol].Text = " ";
-                MessageBox.Show("Stack trống");
                 return;
                 }
                 else
