@@ -16,9 +16,11 @@ namespace Sudoku
 
         #region Value
         ChessBoard chessBoard;      
+        //Solution s = new Solution();
         private int level = 0;
         public static Stopwatch stopwatch = new Stopwatch();
         private bool isNewGame = false;  //Biến bool kiểm tra đã bấm NewGame hay chưa     
+      //  public readonly Stopwatch stopwatch = new Stopwatch();  
         private bool isPause = false;
         #endregion
         public Sudoku()
@@ -61,6 +63,7 @@ namespace Sudoku
         {
 
         }
+
             private void btnRender_Click(object sender, EventArgs e)
             {
                 if (level != 0)
@@ -69,11 +72,19 @@ namespace Sudoku
                     btnPause.Visible = true;
                     btnUndo.Visible = true;
                     btnRedo.Visible = true;
-                
+                    //progressBar.Visible = true;
+                    //progressBar.Value = 0;
+                    //progressBar.MaximumValue = level;
                     chessBoard.CreateNewMatrix();
                     chessBoard.DelCell(level);
-                    chessBoard.ResetEvent();
-                   
+                    //progressBar.Value = level;
+                    ////solved with pre_value and dell n value with level 
+                    //if (progressBar.Value == level)
+                    //{
+                        chessBoard.ResetEvent();
+                       
+                    //    progressBar.Visible = false;
+                    //}
                     level = 0;
                     isNewGame = true;
                     timerPlay.Enabled = true;
