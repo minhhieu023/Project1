@@ -14,7 +14,7 @@ namespace Sudoku
         private Panel chessBoard; //bảng game là 1 panel
         private int[,] curMap = new int[9, 9];
         private static List<List<Button>> matrix; //Khởi tạo 2 list lồng nhau(như 1 mảng 2 chiều), phần tử của list là các button.
-        private Button btn; // Khai báo 1 button
+       
         private static int curCol; //Vị trí hiện tại ứng với ma trận của khi trỏ vào button
         private static int curRow; //Vị trí hiện tại ứng với ma trận của khi trỏ vào button
 
@@ -57,7 +57,7 @@ namespace Sudoku
                 matrix.Add(new List<Button>());
                 for (int j = 0; j < 9; j++)
                 {
-                    btn = new Button();
+                    Button btn = new Button();
                     btn.Width = Const.Btn_Width;
                     btn.Height = Const.Btn_Height;
                     btn.Location = new Point(defaultPoint.X + Const.Btn_Width * j,
@@ -145,7 +145,6 @@ namespace Sudoku
             rootMatrix[8, 8] = r.Next(1, 9);
             rootMatrix[4, 4] = r.Next(1, 9);
             Solve_Sodoku();
-         
         }
         public void DelCell(int level)
         {
