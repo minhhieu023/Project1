@@ -61,7 +61,6 @@ namespace Sudoku
         {
 
         }
-
             private void btnRender_Click(object sender, EventArgs e)
             {
                 if (level != 0)

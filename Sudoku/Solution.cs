@@ -29,7 +29,7 @@ namespace Sudoku
         //Điều kiện đúng của ma trận
         //Dòng và cột là các số từ 1 đến 9 không trùng nhau
         //Từng ô 3x3 (đã được đánh dấu trên giao diện) là các số từ 1 đến 9 không trùng nhau
-      
+       
         public int isOK(int curValue, int row, int col, int[,] matrix)
         {
             int i = 0, j = 0;
