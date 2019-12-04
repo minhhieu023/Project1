@@ -8,6 +8,7 @@ Huỳnh Xuân Huy 17110147
 GVHD: Thầy Huỳnh Xuân Phụng
 
 Hướng dẫn sử dụng:
+Phần mềm Game Sudoku được viết trên C# Winform.
 Document: Chứa file báo cáo và Power Point thuyết trình
 Sudoku: Chứa Source Code game
 Tài liệu tham khảo: Các tài liệu đã mất link đã được download về trước đó.
